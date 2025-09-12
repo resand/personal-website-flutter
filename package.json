@@ -1,0 +1,19 @@
+{
+  "name": "personal_website",
+  "version": "1.0.0",
+  "description": "A modern, fully configurable and multilingual personal website built with Flutter Web to showcase experience, projects, education, certifications, and blog articles professionally.",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "html-minifier-terser": "^7.2.0"
+  }
+}

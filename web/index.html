@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="{{LANG_CODE}}">
+<head>
+  <base href="$FLUTTER_BASE_HREF">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  
+  <!-- Primary Meta Tags -->
+  <title>{{META_TITLE}}</title>
+  <meta name="title" content="{{META_TITLE}}">
+  <meta name="description" content="{{META_DESCRIPTION}}">
+  <meta name="keywords" content="{{META_KEYWORDS}}">
+  <meta name="author" content="{{AUTHOR_NAME}}">
+  <meta name="robots" content="index, follow">
+  
+  <!-- Language alternates for SEO (dynamic switching on same URL) -->
+  <link rel="alternate" hreflang="en" href="{{BASE_URL}}">
+  <link rel="alternate" hreflang="es" href="{{BASE_URL}}">
+  <link rel="alternate" hreflang="x-default" href="{{BASE_URL}}">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{SITE_URL}}">
+  <meta property="og:title" content="{{META_TITLE}}">
+  <meta property="og:description" content="{{META_DESCRIPTION}}">
+  <meta property="og:image" content="{{AVATAR_URL}}">
+  <meta property="og:site_name" content="{{SITE_NAME}}">
+  <meta property="og:locale" content="{{LOCALE}}">
+  
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="{{SITE_URL}}">
+  <meta property="twitter:title" content="{{META_TITLE}}">
+  <meta property="twitter:description" content="{{META_DESCRIPTION}}">
+  <meta property="twitter:image" content="{{AVATAR_URL}}">
+  <meta property="twitter:creator" content="{{TWITTER_HANDLE}}">
+  
+  <!-- PWA Meta Tags -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="{{AUTHOR_NAME}}">
+  <meta name="application-name" content="{{SITE_NAME}}">
+  <meta name="theme-color" content="#374151">
+  <meta name="msapplication-TileColor" content="#374151">
+  <meta name="msapplication-navbutton-color" content="#374151">
+  
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" href="/icons/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/icons/favicon.svg" />
+  <link rel="shortcut icon" href="/icons/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
+  <link rel="manifest" href="/icons/site.webmanifest" />
+  
+  <!-- Preconnect for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://avatars.githubusercontent.com">
+  <link rel="dns-prefetch" href="https://medium.com">
+  
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "{{AUTHOR_NAME}}",
+    "jobTitle": "{{JOB_TITLE}}",
+    "description": "{{STRUCTURED_DESCRIPTION}}",
+    "url": "{{SITE_URL}}",
+    "image": "{{AVATAR_URL}}",
+    "sameAs": {{SOCIAL_LINKS_JSON}},
+    "worksFor": {
+      "@type": "Organization", 
+      "name": "{{ORGANIZATION}}",
+      "url": "{{ORGANIZATION_URL}}"
+    },
+    "knowsAbout": {{SKILLS_JSON}},
+    "alumniOf": "{{EDUCATION}}",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "{{CITY}}",
+      "addressCountry": "{{COUNTRY}}"
+    }
+  }
+  </script>
+  
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ANALYTICS_ID}}"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    
+    gtag('config', '{{ANALYTICS_ID}}', {
+      page_title: '{{META_TITLE}}',
+      page_location: window.location.href,
+      content_group1: 'Website',
+      custom_map: { 'custom_parameter_1': 'language' },
+      language: '{{LANG_CODE}}'
+    });
+  </script>
+</head>
+<body>
+  <script src="flutter_bootstrap.js" async></script>
+</body>
+</html>

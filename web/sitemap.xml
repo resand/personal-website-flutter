@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" 
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <!-- Single URL with dynamic language switching -->
+  <url>
+    <loc>https://renes.dev/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://renes.dev/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://renes.dev/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://renes.dev/" />
+    <lastmod>2024-01-01T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  
+</urlset>

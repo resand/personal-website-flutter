@@ -1,0 +1,125 @@
+{
+  "site_info": {
+    "base_url": "https://renes.dev",
+    "site_name": "René Sandoval Portafolio",
+    "default_language": "es",
+    "alternate_languages": ["en"]
+  },
+  "meta_tags": {
+    "title": "René Sandoval - Ingeniero de Software | GDG Lead Organizer",
+    "description": "Ingeniero de Software especializado en iOS, Flutter, .NET, PHP y Vue.js con 13+ años de experiencia. Experto en arquitecturas móviles y líder tecnológico en Fintech y Open Banking. Lead Organizer de GDG, speaker y activista tecnológico.",
+    "keywords": [
+      "René Sandoval",
+      "Ingeniero de Software",
+      "Desarrollador iOS",
+      "Desarrollador Flutter",
+      "GDG Lead Organizer",
+      "Arquitectura Móvil",
+      "Experto Fintech",
+      "Open Banking",
+      "Swift",
+      "SwiftUI",
+      "Dart",
+      "Desarrollador .NET",
+      "Desarrollador PHP",
+      "Vue.js",
+      "Speaker Tecnológico",
+      "Desarrollador México",
+      "Campeche",
+      "Activista Tecnológico"
+    ],
+    "author": "René Sandoval",
+    "robots": "index, follow",
+    "language": "es",
+    "locale": "es-ES"
+  },
+  "open_graph": {
+    "type": "website",
+    "title": "René Sandoval - Ingeniero de Software | GDG Lead Organizer",
+    "description": "Ingeniero de Software experto con 13+ años creando soluciones móviles, web y backend. Lead Organizer de GDG y activista tecnológico en México.",
+    "image": "https://avatars.githubusercontent.com/u/5307015?v=4",
+    "image_alt": "René Sandoval - Foto de Perfil Ingeniero de Software",
+    "url": "https://renes.dev",
+    "site_name": "René Sandoval Portafolio",
+    "locale": "es-ES",
+    "locale_alternates": ["en-US"]
+  },
+  "twitter": {
+    "card": "summary_large_image",
+    "title": "René Sandoval - Ingeniero de Software | GDG Lead Organizer",
+    "description": "Ingeniero de Software experto con 13+ años creando soluciones móviles, web y backend. Lead Organizer de GDG y activista tecnológico en México.",
+    "image": "https://avatars.githubusercontent.com/u/5307015?v=4",
+    "image_alt": "René Sandoval - Foto de Perfil Ingeniero de Software",
+    "creator": "@resand91",
+    "site": "@resand91"
+  },
+  "structured_data": {
+    "type": "Person",
+    "name": "René Sandoval",
+    "job_title": "Ingeniero de Software | GDG Lead Organizer",
+    "description": "Ingeniero de Software con más de 13 años de experiencia construyendo aplicaciones móviles, web y backend de alto impacto. Experto en iOS, Flutter, .NET, PHP y Vue.js, con especialización en Fintech y Open Banking.",
+    "organization": "Freelance",
+    "organization_url": "https://renes.dev",
+    "skills": [
+      "Desarrollo iOS",
+      "Swift",
+      "SwiftUI",
+      "Flutter",
+      "Dart",
+      ".NET",
+      "C#",
+      "PHP",
+      "Vue.js",
+      "Arquitectura Móvil",
+      "Arquitectura VIPER",
+      "Clean Architecture",
+      "Fintech",
+      "Open Banking",
+      "Liderazgo Técnico"
+    ],
+    "education": "Ingeniería en Sistemas Computacionales",
+    "address": {
+      "locality": "Campeche",
+      "country": "México",
+      "country_code": "MX"
+    },
+    "url": "https://renes.dev",
+    "image": "https://avatars.githubusercontent.com/u/5307015?v=4",
+    "same_as": [
+      "https://www.linkedin.com/in/resand91",
+      "https://github.com/resand",
+      "https://medium.com/@resand",
+      "https://x.com/resand91",
+      "https://instagram.com/resand91"
+    ]
+  },
+  "pwa": {
+    "theme_color": "#374151",
+    "background_color": "#ffffff",
+    "display": "standalone",
+    "orientation": "portrait",
+    "scope": "/",
+    "start_url": "/"
+  },
+  "analytics": {
+    "google_analytics_id": "G-26TNM1F3EV",
+    "gtag_config": {
+      "page_title": "René Sandoval - Portafolio Ingeniero de Software",
+      "content_group1": "Sitio Web Portafolio",
+      "language": "es",
+      "country": "MX"
+    }
+  },
+  "performance": {
+    "preconnect_domains": [
+      "https://fonts.googleapis.com",
+      "https://fonts.gstatic.com",
+      "https://avatars.githubusercontent.com",
+      "https://www.googletagmanager.com"
+    ],
+    "dns_prefetch_domains": [
+      "https://medium.com",
+      "https://api.github.com"
+    ]
+  }
+}

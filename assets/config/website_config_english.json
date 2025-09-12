@@ -1,0 +1,495 @@
+{
+  "personal_info": {
+    "name": "René Sandoval",
+    "title": "Software Engineer & GDG Lead Organizer",
+    "subtitle": "13+ years designing and developing web, backend and mobile solutions",
+    "bio": "Software Engineer with over 13 years of experience building high-impact mobile, web, and backend applications. Expert in iOS (Swift/SwiftUI, SwiftData, strict concurrency), Flutter, C#/.NET, PHP, and Vue.js, with specialization in Fintech and Open Banking for Mexico and Latin America markets. I have led development teams, defined VIPER and Clean Architecture from scratch, and optimized products that scale in production for institutions like CITI and international remittance platforms. As a technology activist since 2012, I have driven the development ecosystem in Campeche through conferences, workshops, and university mentoring. Lead Organizer of GDG San Francisco de Campeche, I have organized events like DevFest and shared knowledge in over 100 conferences, being a recognized speaker at SG Virtual and collaborator in SEGIB Citizen Innovation Laboratories. I combine technical vision and community leadership to deliver quality software with real impact.",
+    "short_bio": "Software Engineer specialized in iOS, Flutter, .NET, PHP and Vue.js with 13+ years of experience. Expert in mobile architectures and tech leader in Fintech and Open Banking. GDG Lead Organizer, speaker and technology activist committed to the development ecosystem.",
+    "fun_fact": "Ex-Carpenter → Programmer",
+    "years_of_experience": "13+",
+    "email": "resand91@gmail.com",
+    "location": "Campeche, Mexico",
+    "avatar_url": "https://avatars.githubusercontent.com/u/5307015?v=4",
+    "logo_light_url": "images/logos/logo-light.png",
+    "logo_dark_url": "images/logos/logo_dark.png"
+  },
+  "language_info": {
+    "code": "EN",
+    "name": "English"
+  },
+  "social_links": [
+    {
+      "platform": "linkedin",
+      "url": "https://www.linkedin.com/in/resand91"
+    },
+    {
+      "platform": "github", 
+      "url": "https://github.com/resand"
+    },
+    {
+      "platform": "medium",
+      "url": "https://medium.com/@resand"
+    },
+    {
+      "platform": "x",
+      "url": "https://x.com/resand91"
+    },
+    {
+      "platform": "instagram",
+      "url": "https://instagram.com/resand91"
+    }
+  ],
+  "blog_config": {
+    "show_latest_posts": true,
+    "max_posts_to_show": 6,
+    "sources": [
+      {
+        "name": "Medium",
+        "username": "resand",
+        "rss_url": "https://medium.com/feed/@resand",
+        "enabled": true
+      }
+    ],
+    "section_title": "Latest Posts",
+    "section_description": "Articles and insights about architecture, mobile development, web and best practices",
+    "error_title": "Could not load articles",
+    "error_message": "You can visit my Medium profile directly",
+    "empty_message": "No articles available",
+    "view_all_text": "View all articles on Medium"
+  },
+  "experience": [
+    {
+      "company": "Fraternitas",
+      "position": "iOS Developer",
+      "duration": "July 2023 - November 2024",
+      "location": "Texas, United States (Remote)",
+      "description": "Development and refactoring of remittance and service payment applications from USA to LATAM.",
+      "technologies": ["iOS", "Swift", "UIKit", "VIPER", "JWE", "Flutter"],
+      "highlights": [
+        "Migrated complete application from Storyboards to programmatic views with UIKit, improving maintainability and performance",
+        "Implemented VIPER pattern and DRY principles for scalable architecture",
+        "Developed component-based system for reusable UI elements",
+        "Integrated advanced security with JWE in critical services, strengthening data protection",
+        "Implemented templates for new modules and build phases for asset generators",
+        "Defined Flutter app architecture and coding standards",
+        "Collaborated in specialized technical interviews for iOS developer hiring"
+      ]
+    },
+    {
+      "company": "Finerio Connect",
+      "position": "Mobile Tech Lead",
+      "duration": "October 2021 - March 2023",
+      "location": "Mexico City, Mexico (Remote)",
+      "description": "Technical leadership of mobile teams and SDK development for Open Banking.",
+      "technologies": ["iOS", "Android", "Swift", "Open Banking", "UI/UX"],
+      "highlights": [
+        "Led iOS and Android development teams with agile methodologies",
+        "Refactored code with focus on best practices and SOLID/DRY principles",
+        "Performed feasibility analysis and code reviews for new functionalities",
+        "Designed features with strong focus on UI/UX principles, improving end-user experience"
+      ]
+    },
+    {
+      "company": "Finerio Connect",
+      "position": "iOS Developer",
+      "duration": "September 2020 - September 2021",
+      "location": "Mexico City, Mexico (Remote)",
+      "description": "Application and SDK development for Open Banking and personal financial management.",
+      "technologies": ["iOS", "Swift", "Open Banking", "SDK Development"],
+      "highlights": [
+        "Developed applications and UI SDKs for Open Banking with focus on simple integration",
+        "Implemented bug fixes, maintenance and new features for Personal Financial Management apps"
+      ]
+    },
+    {
+      "company": "Icom Software",
+      "position": "iOS Developer",
+      "duration": "December 2019 - July 2020",
+      "location": "Mexico",
+      "description": "iOS application development with Swift and implementation of scalable architectures.",
+      "technologies": ["iOS", "Swift", "VIPER", "APNS", "Firebase", "CI/CD"],
+      "highlights": [
+        "Developed iOS applications with Swift implementing VIPER pattern and architecture",
+        "Tested applications in QA environment and managed Ad Hoc and App Store distribution",
+        "Implemented application distribution through continuous integration",
+        "Configured push notifications with APNS and Firebase"
+      ]
+    },
+    {
+      "company": "CITI",
+      "position": "iOS Developer",
+      "duration": "October 2017 - September 2018",
+      "location": "Mexico City, Mexico (Remote)",
+      "description": "Mobile payment application development for banking institution.",
+      "technologies": ["iOS", "Swift", "MVVM", "VIPER", "Custom Keyboard"],
+      "highlights": [
+        "Developed new features for mobile payment applications",
+        "Implemented custom keyboard extensions to improve user interaction",
+        "Refactored existing code applying MVVM and VIPER patterns to improve scalability",
+        "Tested applications in QA environment and managed Ad Hoc and App Store distributions"
+      ]
+    },
+    {
+      "company": "Horuss Solutions",
+      "position": "Head of Technology",
+      "duration": "October 2016 - October 2017",
+      "location": "Campeche, Mexico",
+      "description": "Technology leadership and development of web, mobile and desktop applications.",
+      "technologies": [".NET Core", "C#", "iOS", "Swift", "Windows Forms", "REST API"],
+      "highlights": [
+        "Planned new web and mobile projects",
+        "Developed web applications with .NET Core and desktop applications with Windows Forms",
+        "Designed and implemented N-Layers architecture and migrated applications from .NET Framework to .NET Core",
+        "Developed unit tests and REST APIs"
+      ]
+    },
+    {
+      "company": "Horuss Solutions",
+      "position": "iOS Developer",
+      "duration": "September 2015 - October 2016",
+      "location": "Campeche, Mexico",
+      "description": "iOS application development and implementation of emerging technologies.",
+      "technologies": ["iOS", "Swift", "Objective-C", "Core Data", "CocoaPods", "IBM Watson", "Google Dialogflow"],
+      "highlights": [
+        "Developed iOS applications with Swift and Objective-C",
+        "Implemented REST and SOAP API consumption with MVC, Observer, Delegate patterns",
+        "Configured libraries with CocoaPods and data persistence with Core Data",
+        "Implemented IBM Watson for smart chat application and Google Dialogflow for conversational bots",
+        "Configured complete certificate process and implemented Push Notifications",
+        "Managed app publishing and Ad Hoc distribution"
+      ]
+    },
+    {
+      "company": "OmniTecnia",
+      "position": "Web Developer",
+      "duration": "August 2015 - August 2016",
+      "location": "Mexico",
+      "description": "Web application development and e-commerce systems.",
+      "technologies": ["PHP", "Laravel", "PayPal"],
+      "highlights": [
+        "Developed online store with PayPal payments using PHP and Laravel",
+        "Maintained existing real estate systems"
+      ]
+    },
+    {
+      "company": "Secretaría de Finanzas del Poder Ejecutivo del Estado de Campeche",
+      "position": "Software QA Engineer",
+      "duration": "November 2013 - January 2015",
+      "location": "Campeche, Mexico",
+      "description": "Unit testing development and specialized analysis of government systems.",
+      "technologies": ["Unit Testing", "QA"],
+      "highlights": [
+        "Developed unit tests for government systems",
+        "Performed specialized software quality analysis"
+      ]
+    }
+  ],
+  "skills": {
+    "categories": [
+      {
+        "id": "mobile",
+        "title": "Mobile",
+        "icon": "flutter_dash",
+        "skills": [
+          { "name": "iOS", "level": "Advanced" },
+          { "name": "Android", "level": "Basic" },
+          { "name": "Swift", "level": "Advanced" },
+          { "name": "SwiftUI", "level": "Expert" },
+          { "name": "UIKit", "level": "Advanced" },
+          { "name": "Flutter", "level": "Advanced" }
+        ]
+      },
+      {
+        "id": "frontend",
+        "title": "Frontend",
+        "icon": "web",
+        "skills": [
+          { "name": "Vue.js 3", "level": "Advanced" },
+          { "name": "HTML/CSS/JS", "level": "Expert" }
+        ]
+      },
+      {
+        "id": "architectures",
+        "title": "Architectures",
+        "icon": "account_tree",
+        "skills": [
+          { "name": "VIPER", "level": "Expert" },
+          { "name": "MVVM", "level": "Expert" },
+          { "name": "MVC", "level": "Expert" },
+          { "name": "Clean Architecture", "level": "Advanced" },
+          { "name": "SOLID Principles", "level": "Advanced" }
+        ]
+      },
+      {
+        "id": "backend",
+        "title": "Backend",
+        "icon": "cloud_queue",
+        "skills": [
+          { "name": "C#", "level": "Advanced" },
+          { "name": ".NET", "level": "Advanced" },
+          { "name": "REST API", "level": "Expert" },
+          { "name": "PHP", "level": "Advanced" },
+          { "name": "Laravel", "level": "Intermediate" }
+        ]
+      },
+      {
+        "id": "tools",
+        "title": "Tools",
+        "icon": "construction",
+        "skills": [
+          { "name": "Xcode", "level": "Expert" },
+          { "name": "Git", "level": "Expert" },
+          { "name": "CocoaPods", "level": "Advanced" },
+          { "name": "Firebase", "level": "Advanced" },
+          { "name": "App Store", "level": "Expert" },
+          { "name": "CI/CD", "level": "Advanced" },
+          { "name": "Jira", "level": "Advanced" }
+        ]
+      }
+    ]
+  },
+  "volunteering": [
+    {
+      "organization": "Google Developer Group (GDG)",
+      "role": "Lead Organizer",
+      "duration": "2019 - Present",
+      "description": "Leadership and organization of technology events for the developer community. Promotion of Google technologies, software architecture and development best practices.",
+      "impact": "I have organized many technical events and workshops for the local community, impacting hundreds of developers",
+      "website": "https://developers.google.com/community/gdg"
+    }
+  ],
+  "projects": [
+    {
+      "name": "Scalable Remittance Platform",
+      "description": "Mobile application for sending remittances and service payments from USA to LATAM, with VIPER architecture and advanced security.",
+      "technologies": ["Swift", "UIKit", "VIPER", "JWE"],
+      "github_url": null,
+      "live_url": null,
+      "image_url": null,
+      "featured": true
+    },
+    {
+      "name": "Open Banking SDK",
+      "description": "SDK development for Open Banking & PFM with cross-platform integration and focus on user experience.",
+      "technologies": ["Swift", "Android", "Open Banking", "SDK Development"],
+      "github_url": null,
+      "live_url": null,
+      "image_url": null,
+      "featured": true
+    }
+  ],
+  "education": [
+    {
+      "institution": "Universidad Da Vinci",
+      "degree": "Master in Computer Systems",
+      "field": "Systems Engineering",
+      "duration": "April 2020 - December 2021"
+    },
+    {
+      "institution": "Instituto Tecnológico de Campeche",
+      "degree": "Bachelor of Science in Computer Science",
+      "field": "Software Engineering",
+      "duration": "2009 - 2014"
+    }
+  ],
+  "certifications": [
+    "CCNA: Introduction to Networks",
+    "CCNA: Switching, Routing, and Wireless Essentials",
+    "Scrum Foundation Professional Certification - SFPC",
+    "edX Honor Code Certificate for the Mobile Devices for Territory Management course"
+  ],
+  "theme": {
+    "default_mode": "auto",
+    "font_family": "Poppins",
+    "enable_animations": true,
+    "elevation": {
+      "level_1": {
+        "blur_radius": 2,
+        "offset_y": 1,
+        "opacity": 0.1
+      },
+      "level_2": {
+        "blur_radius": 4,
+        "offset_y": 2,
+        "opacity": 0.12
+      },
+      "level_3": {
+        "blur_radius": 8,
+        "offset_y": 4,
+        "opacity": 0.14
+      },
+      "level_4": {
+        "blur_radius": 16,
+        "offset_y": 8,
+        "opacity": 0.16
+      }
+    },
+    "light_colors": {
+      "primary": "#374151",
+      "secondary": "#6B7280",
+      "accent": "#10B981",
+      "background": "#F9FAFB",
+      "surface": "#FFFFFF",
+      "on_primary": "#FFFFFF",
+      "on_secondary": "#FFFFFF",
+      "on_background": "#111827",
+      "on_surface": "#374151",
+      "error": "#EF4444",
+      "on_error": "#FFFFFF"
+    },
+    "dark_colors": {
+      "primary": "#4B5563",
+      "secondary": "#6B7280",
+      "accent": "#10B981",
+      "background": "#000000",
+      "surface": "#111111",
+      "on_primary": "#FFFFFF",
+      "on_secondary": "#FFFFFF",
+      "on_background": "#F3F4F6",
+      "on_surface": "#F9FAFB",
+      "error": "#EF4444",
+      "on_error": "#FFFFFF"
+    }
+  },
+  "layout": {
+    "show_hero_section": true,
+    "show_about_section": true,
+    "show_experience_section": true,
+    "show_skills_section": true,
+    "show_projects_section": true,
+    "show_volunteering_section": true,
+    "show_education_section": true,
+    "show_certifications_section": true,
+    "show_blog_section": true,
+    "show_contact_section": true,
+    "enable_dark_mode": true,
+    "enable_animations": true,
+    "logo_height": 100,
+    "navigation": {
+      "hover_animation_duration": 200,
+      "hover_background_opacity": 0.1,
+      "active_background_opacity": 0.15,
+      "show_active_border": true
+    },
+    "section_order": [
+      "hero",
+      "projects",
+      "skills",
+      "experience",
+      "education",
+      "certifications",
+      "about",
+      "blog",
+      "volunteering",
+      "contact"
+    ],
+    "navigation_labels": {
+      "home": "Home",
+      "about": "About",
+      "experience": "Experience",
+      "skills": "Skills",
+      "projects": "Projects",
+      "volunteering": "Volunteering",
+      "education": "Education",
+      "certifications": "Certifications",
+      "blog": "Blog",
+      "contact": "Contact"
+    },
+    "section_titles": {
+      "about": "About Me",
+      "experience": "Professional Experience",
+      "skills": "Technical Skills",
+      "projects": "Featured Projects",
+      "volunteering": "Volunteering & Contributions",
+      "education": "Academic Background",
+      "certifications": "Certifications",
+      "blog": "Latest Posts",
+      "contact": "Contact",
+      "other_projects": "Other Projects",
+      "years_experience": "Years of Experience",
+      "description_text": "Specialized in mobile and web architectures, technical leadership and experience in multiple modern ecosystems (iOS, Flutter, .NET, Vue.js, PHP)."
+    },
+    "hero_texts": {
+      "greeting": "Hi, I'm",
+      "contact_button": "Contact"
+    },
+    "ui_texts": {
+      "language_tooltip": "Change language",
+      "theme_tooltip": "Change theme",
+      "more_menu": "More",
+      "featured_badge": "Featured",
+      "code_button": "Code",
+      "view_button": "View",
+      "min_read_text": "min read",
+      "theme_auto": "Auto",
+      "theme_light": "Light",
+      "theme_dark": "Dark",
+      "config_error": "Configuration loading error",
+      "unknown_error": "Unknown error",
+      "config_load_error": "Error loading configuration",
+      "retry_button": "Retry",
+      "highlights_title": "Key achievements:",
+      "impact_label": "Impact:",
+      "view_organization": "View Organization",
+      "linkedin_button": "LinkedIn",
+      "month_names": [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December"
+      ],
+      "social_labels": {
+        "linkedin": "LinkedIn",
+        "github": "GitHub",
+        "x": "X",
+        "medium": "Medium",
+        "instagram": "Instagram"
+      }
+    },
+    "contact_texts": {
+      "lets_connect": "Let's Connect",
+      "coffee_question": "Shall we have coffee?",
+      "project_description": "Want to boost a digital product, optimize your architecture, or collaborate on an innovative project? Let's talk.",
+      "follow_social": "Follow me on social media",
+      "open_opportunities": "I'm always open to discussing new opportunities, interesting projects, or simply chatting about technology.",
+      "send_message": "Send message"
+    },
+    "about_texts": {
+      "my_story": "My Story",
+      "location": "Location",
+      "title": "Title",
+      "email": "Email"
+    }
+  },
+  "meta": {
+    "site_url": "https://personal-website-resand.web.app",
+    "title": "René Sandoval | Software Engineer & GDG Lead Organizer",
+    "description": "Software Engineer with 13+ years of experience in iOS, Flutter, .NET, PHP and Vue.js. Specialist in Fintech, Open Banking and mobile architectures. GDG Lead Organizer in Campeche.",
+    "keywords": "René Sandoval, Software Engineer, iOS Developer, Flutter Developer, GDG Lead Organizer, Fintech, Open Banking, Campeche, Mexico",
+    "structured_description": "Software Engineer with 13+ years of experience specialized in iOS, Flutter, .NET, PHP and Vue.js",
+    "site_name": "René Sandoval Website",
+    "locale": "en_US",
+    "lang_code": "en",
+    "twitter_handle": "@resand91",
+    "organization": "GDG San Francisco de Campeche",
+    "organization_url": "https://developers.google.com/community/gdg",
+    "city": "Campeche",
+    "country": "MX",
+    "education": "Instituto Tecnológico de Campeche"
+  },
+  "footer": {
+    "tagline": "Software architect and passionate developer, creating scalable solutions and exceptional user experiences",
+    "connect_title": "Connect with me",
+    "copyright_text": "All rights reserved",
+    "made_with_text": "Made with",
+    "with_text": "with"
+  }
+}
