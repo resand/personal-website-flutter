@@ -256,6 +256,54 @@
       "description": "Liderazgo y organización de eventos tecnológicos para la comunidad de desarrolladores. Promoción de tecnologías Google, arquitectura de software y mejores prácticas de desarrollo.",
       "impact": "He organizado muchos eventos técnicos y talleres para la comunidad local, impactando a cientos de desarrolladores",
       "website": "https://developers.google.com/community/gdg"
+    },
+    {
+      "organization": "Techstars Startup Weekend",
+      "role": "Mentor y Speaker",
+      "duration": "2018",
+      "description": "Ayudo a participantes a crear productos digitales y resolver problemas reales. Proporcionamos herramientas para implementar proyectos en solo 54 horas, incluyendo la primera edición del Global Online Startup Weekend México COVID19.",
+      "impact": "He mentoreado a más de 200 emprendedores en múltiples ediciones del Startup Weekend",
+      "website": "https://www.techstars.com/communities/startup-weekend"
+    },
+    {
+      "organization": "SEGIB - Secretaría General Iberoamericana",
+      "role": "Colaborador",
+      "duration": "2018",
+      "description": "Participé como Desarrollador Web en proyectos de Innovación Ciudadana. Desarrollé una plataforma educativa para polinización en Guanacaste, Costa Rica, y la primera plataforma online especializada en intercambio y venta de productos de comercio justo y ecológicos en Rosario, Argentina.",
+      "impact": "Contribuí al desarrollo de 2 plataformas de impacto social que beneficiaron a comunidades locales en Costa Rica y Argentina",
+      "website": "https://innovacionciudadana.org/laboratorios/labic"
+    },
+    {
+      "organization": "FLISoL - Festival Latinoamericano de Instalación de Software Libre",
+      "role": "Co-Organizador",
+      "duration": "2012",
+      "description": "Co-organizador del Festival Latinoamericano de Instalación de Software Libre en San Francisco de Campeche. Promoción del software libre y tecnologías open source.",
+      "impact": "Organicé eventos que promovieron el uso de software libre entre más de 300 estudiantes y profesionales",
+      "website": "https://flisol.info"
+    },
+    {
+      "organization": "SG Virtual Conference",
+      "role": "Speaker - El secreto para ser un desarrollador Senior",
+      "duration": "Diciembre 2020",
+      "description": "Compartí el 'secreto' y el camino para llegar a ser un desarrollador Senior, experiencia, consejos y recomendaciones basados en 8 años de trabajo profesional y participación activa en comunidades de tecnología en el sureste de México.",
+      "impact": "Conferencia vista por más de 500 desarrolladores en el evento virtual de SG",
+      "website": "https://sg.com.mx/buzz/ponencias/sg-virtual-conference-diciembre-2020/el-secreto-para-ser-un-desarrollador-senior"
+    },
+    {
+      "organization": "SG Virtual #13",
+      "role": "Speaker - La verdad sobre los equipos de trabajo",
+      "duration": "2017",
+      "description": "Conferencia sobre el armado de equipos de trabajo en desarrollo de software. Compartí mi experiencia participando, armando y liderando equipos, así como las dificultades y factores de éxito en este proceso complejo.",
+      "impact": "Compartí experiencias prácticas sobre liderazgo y gestión de equipos con la comunidad de desarrolladores",
+      "website": "https://sg.com.mx/buzz/ponencias/sg-virtual-13/la-verdad-sobre-los-equipos-de-trabajo-en-desarrollo-de-software"
+    },
+    {
+      "organization": "Universidades Locales",
+      "role": "Mentor y Conferencista",
+      "duration": "2012 ",
+      "description": "Mentoría a estudiantes universitarios, impartición de talleres y conferencias sobre desarrollo de software, arquitectura de aplicaciones y tecnologías emergentes.",
+      "impact": "He mentoreado a más de 1000 estudiantes en su camino hacia el desarrollo profesional de software",
+      "website": null
     }
   ],
   "projects": [
