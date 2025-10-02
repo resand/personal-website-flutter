@@ -23,7 +23,7 @@
       "url": "https://www.linkedin.com/in/resand91"
     },
     {
-      "platform": "github", 
+      "platform": "github",
       "url": "https://github.com/resand"
     },
     {
@@ -135,7 +135,14 @@
       "duration": "Octubre 2016 - Octubre 2017",
       "location": "Campeche, México",
       "description": "Liderazgo tecnológico y desarrollo de aplicaciones web, móviles y de escritorio.",
-      "technologies": [".NET Core", "C#", "iOS", "Swift", "Windows Forms", "API REST"],
+      "technologies": [
+        ".NET Core",
+        "C#",
+        "iOS",
+        "Swift",
+        "Windows Forms",
+        "API REST"
+      ],
       "highlights": [
         "Planifiqué nuevos proyectos web y móviles",
         "Desarrollé aplicaciones web con .NET Core y aplicaciones de escritorio con Windows Forms",
@@ -149,7 +156,15 @@
       "duration": "Septiembre 2015 - Octubre 2016",
       "location": "Campeche, México",
       "description": "Desarrollo de aplicaciones iOS y implementación de tecnologías emergentes.",
-      "technologies": ["iOS", "Swift", "Objective-C", "Core Data", "CocoaPods", "IBM Watson", "Google Dialogflow"],
+      "technologies": [
+        "iOS",
+        "Swift",
+        "Objective-C",
+        "Core Data",
+        "CocoaPods",
+        "IBM Watson",
+        "Google Dialogflow"
+      ],
       "highlights": [
         "Desarrollé aplicaciones iOS con Swift y Objective-C",
         "Implementé consumo de APIs REST y SOAP con patrones MVC, Observer, Delegate",
@@ -323,6 +338,21 @@
       "github_url": null,
       "live_url": null,
       "image_url": null,
+      "featured": true
+    },
+    {
+      "name": "Facturación Cafetería Sirena",
+      "description": "Aplicación web para facturar tickets de Starbucks México usando OCR automático, validación en tiempo real y generación de facturas CFDI válidas para el SAT. Incluye modo invitado con almacenamiento local y autenticación con Firebase.",
+      "technologies": [
+        "Flutter Web",
+        "Firebase",
+        "Tesseract.js",
+        "Cloud Functions",
+        "Firestore"
+      ],
+      "github_url": "",
+      "live_url": "https://tickets-sirena.renes.dev",
+      "image_url": "https://tickets-sirena.renes.dev/images/social-image.png",
       "featured": true
     }
   ],

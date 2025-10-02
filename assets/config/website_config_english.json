@@ -23,7 +23,7 @@
       "url": "https://www.linkedin.com/in/resand91"
     },
     {
-      "platform": "github", 
+      "platform": "github",
       "url": "https://github.com/resand"
     },
     {
@@ -135,7 +135,14 @@
       "duration": "October 2016 - October 2017",
       "location": "Campeche, Mexico",
       "description": "Technology leadership and development of web, mobile and desktop applications.",
-      "technologies": [".NET Core", "C#", "iOS", "Swift", "Windows Forms", "REST API"],
+      "technologies": [
+        ".NET Core",
+        "C#",
+        "iOS",
+        "Swift",
+        "Windows Forms",
+        "REST API"
+      ],
       "highlights": [
         "Planned new web and mobile projects",
         "Developed web applications with .NET Core and desktop applications with Windows Forms",
@@ -149,7 +156,15 @@
       "duration": "September 2015 - October 2016",
       "location": "Campeche, Mexico",
       "description": "iOS application development and implementation of emerging technologies.",
-      "technologies": ["iOS", "Swift", "Objective-C", "Core Data", "CocoaPods", "IBM Watson", "Google Dialogflow"],
+      "technologies": [
+        "iOS",
+        "Swift",
+        "Objective-C",
+        "Core Data",
+        "CocoaPods",
+        "IBM Watson",
+        "Google Dialogflow"
+      ],
       "highlights": [
         "Developed iOS applications with Swift and Objective-C",
         "Implemented REST and SOAP API consumption with MVC, Observer, Delegate patterns",
@@ -323,6 +338,21 @@
       "github_url": null,
       "live_url": null,
       "image_url": null,
+      "featured": true
+    },
+    {
+      "name": "Cafetería Sirena Invoicing",
+      "description": "Web application for invoicing Starbucks Mexico receipts using automatic OCR, real-time validation and generation of valid CFDI invoices for SAT. Includes guest mode with local storage and Firebase authentication.",
+      "technologies": [
+        "Flutter Web",
+        "Firebase",
+        "Tesseract.js",
+        "Cloud Functions",
+        "Firestore"
+      ],
+      "github_url": "",
+      "live_url": "https://tickets-sirena.renes.dev",
+      "image_url": "https://tickets-sirena.renes.dev/images/social-image.png",
       "featured": true
     }
   ],
