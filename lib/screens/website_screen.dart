@@ -79,26 +79,37 @@ class _MyWebsiteScreenState extends State<MyWebsiteScreen> with TickerProviderSt
   List<String> get _sectionOrder => widget.config.layout.sectionOrder;
 
   void _updateCurrentSection() {
-    String newSection = 'hero';
+    String? newSection;
     final navbarHeight = _getNavbarHeight(context);
+    final threshold = navbarHeight + 20; // navbar height + 20px margin
 
-    for (String section in _sectionOrder) {
-      final key = _sectionKeys[section];
-      if (key?.currentContext != null) {
-        final renderBox = key!.currentContext!.findRenderObject() as RenderBox?;
-        if (renderBox != null) {
-          final position = renderBox.localToGlobal(Offset.zero);
-          // If section is in viewport (accounting for navbar height + small margin)
-          final threshold = navbarHeight + 20; // navbar height + 20px margin
-          if (position.dy <= threshold && position.dy + renderBox.size.height > threshold) {
-            newSection = section;
-            break;
+    // Check if we're at the bottom of the page
+    final isAtBottom = _scrollController.offset >=
+        _scrollController.position.maxScrollExtent - 100;
+
+    // If at bottom, set to last section
+    if (isAtBottom && _sectionOrder.isNotEmpty) {
+      newSection = _sectionOrder.last;
+    } else {
+      // Find the current section in viewport
+      for (String section in _sectionOrder) {
+        final key = _sectionKeys[section];
+        if (key?.currentContext != null) {
+          final renderBox = key!.currentContext!.findRenderObject() as RenderBox?;
+          if (renderBox != null) {
+            final position = renderBox.localToGlobal(Offset.zero);
+            // If section is in viewport
+            if (position.dy <= threshold && position.dy + renderBox.size.height > threshold) {
+              newSection = section;
+              break;
+            }
           }
         }
       }
     }
 
-    if (newSection != currentSection) {
+    // Only update if we found a section and it's different from current
+    if (newSection != null && newSection != currentSection) {
       setState(() {
         currentSection = newSection;
       });
