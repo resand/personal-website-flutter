@@ -1,7 +1,7 @@
 {
   "site_info": {
     "base_url": "https://renes.dev",
-    "site_name": "René Sandoval Portafolio",
+    "site_name": "René Sandoval",
     "default_language": "es",
     "alternate_languages": ["en"]
   },
@@ -40,7 +40,7 @@
     "image": "https://avatars.githubusercontent.com/u/5307015?v=4",
     "image_alt": "René Sandoval - Foto de Perfil Ingeniero de Software",
     "url": "https://renes.dev",
-    "site_name": "René Sandoval Portafolio",
+    "site_name": "René Sandoval",
     "locale": "es-ES",
     "locale_alternates": ["en-US"]
   },
@@ -104,8 +104,8 @@
   "analytics": {
     "google_analytics_id": "G-26TNM1F3EV",
     "gtag_config": {
-      "page_title": "René Sandoval - Portafolio Ingeniero de Software",
-      "content_group1": "Sitio Web Portafolio",
+      "page_title": "René Sandoval - Ingeniero de Software",
+      "content_group1": "Sitio Web",
       "language": "es",
       "country": "MX"
     }

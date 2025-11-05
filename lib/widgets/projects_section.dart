@@ -138,7 +138,6 @@ class ProjectsSection extends StatelessWidget {
                     spacing: 4,
                     runSpacing: 4,
                     children: project.technologies
-                        .take(3)
                         .map(
                           (tech) => Container(
                             padding: const EdgeInsets.symmetric(
@@ -168,43 +167,7 @@ class ProjectsSection extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 8),
-                Row(
-                  children: [
-                    if (project.githubUrl?.isNotEmpty == true)
-                      Flexible(
-                        child: OutlinedButton.icon(
-                          onPressed: () => _launchUrl(project.githubUrl!),
-                          icon: const FaIcon(FontAwesomeIcons.github, size: 16),
-                          label: Text(
-                            config.layout.uiTexts.codeButton,
-                            style: const TextStyle(fontSize: 14),
-                          ),
-                          style: OutlinedButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-                            minimumSize: const Size(0, 40),
-                          ),
-                        ),
-                      ),
-                    if (project.githubUrl?.isNotEmpty == true &&
-                        project.liveUrl?.isNotEmpty == true)
-                      const SizedBox(width: 6),
-                    if (project.liveUrl?.isNotEmpty == true)
-                      Flexible(
-                        child: ElevatedButton.icon(
-                          onPressed: () => _launchUrl(project.liveUrl!),
-                          icon: const Icon(Icons.launch, size: 16),
-                          label: Text(
-                            config.layout.uiTexts.viewButton,
-                            style: const TextStyle(fontSize: 14),
-                          ),
-                          style: ElevatedButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-                            minimumSize: const Size(0, 40),
-                          ),
-                        ),
-                      ),
-                  ],
-                ),
+                _buildProjectButtons(context, project),
               ],
             ),
           ),
@@ -242,6 +205,81 @@ class ProjectsSection extends StatelessWidget {
             : _buildPlaceholderImage(context),
       ),
     );
+  }
+
+  Widget _buildProjectButtons(BuildContext context, Project project) {
+    final hasStoreLinks = project.storeLinks != null &&
+        (project.storeLinks!.android?.isNotEmpty == true ||
+            project.storeLinks!.ios?.isNotEmpty == true);
+    final hasUrl = project.url?.isNotEmpty == true;
+
+    // Si tiene store links, mostrar botones de tiendas
+    if (hasStoreLinks) {
+      return Wrap(
+        spacing: 6,
+        runSpacing: 6,
+        children: [
+          if (project.storeLinks!.android?.isNotEmpty == true)
+            OutlinedButton.icon(
+              onPressed: () => _launchUrl(project.storeLinks!.android!),
+              icon: const FaIcon(FontAwesomeIcons.googlePlay, size: 16),
+              label: const Text(
+                'Android',
+                style: TextStyle(fontSize: 14),
+              ),
+              style: OutlinedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                minimumSize: const Size(0, 40),
+              ),
+            ),
+          if (project.storeLinks!.ios?.isNotEmpty == true)
+            OutlinedButton.icon(
+              onPressed: () => _launchUrl(project.storeLinks!.ios!),
+              icon: const FaIcon(FontAwesomeIcons.appStore, size: 16),
+              label: const Text(
+                'iOS',
+                style: TextStyle(fontSize: 14),
+              ),
+              style: OutlinedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                minimumSize: const Size(0, 40),
+              ),
+            ),
+          if (hasUrl)
+            ElevatedButton.icon(
+              onPressed: () => _launchUrl(project.url!),
+              icon: const Icon(Icons.launch, size: 16),
+              label: Text(
+                config.layout.uiTexts.viewButton,
+                style: const TextStyle(fontSize: 14),
+              ),
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                minimumSize: const Size(0, 40),
+              ),
+            ),
+        ],
+      );
+    }
+
+    // Si no tiene store links pero tiene url
+    if (hasUrl) {
+      return ElevatedButton.icon(
+        onPressed: () => _launchUrl(project.url!),
+        icon: const Icon(Icons.launch, size: 16),
+        label: Text(
+          config.layout.uiTexts.viewButton,
+          style: const TextStyle(fontSize: 14),
+        ),
+        style: ElevatedButton.styleFrom(
+          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+          minimumSize: const Size(0, 40),
+        ),
+      );
+    }
+
+    // Sin botones si no hay links
+    return const SizedBox.shrink();
   }
 
   Widget _buildPlaceholderImage(BuildContext context) {

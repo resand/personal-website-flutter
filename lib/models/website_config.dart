@@ -391,17 +391,17 @@ class Project {
   final String name;
   final String description;
   final List<String> technologies;
-  final String? githubUrl;
-  final String? liveUrl;
+  final String? url;
   final String? imageUrl;
+  final StoreLinks? storeLinks;
 
   Project({
     required this.name,
     required this.description,
     required this.technologies,
-    this.githubUrl,
-    this.liveUrl,
+    this.url,
     this.imageUrl,
+    this.storeLinks,
   });
 
   factory Project.fromJson(Map<String, dynamic> json) {
@@ -409,9 +409,28 @@ class Project {
       name: json['name'],
       description: json['description'],
       technologies: List<String>.from(json['technologies']),
-      githubUrl: json['github_url'],
-      liveUrl: json['live_url'],
+      url: json['url'],
       imageUrl: json['image_url'],
+      storeLinks: json['store_links'] != null
+          ? StoreLinks.fromJson(json['store_links'])
+          : null,
+    );
+  }
+}
+
+class StoreLinks {
+  final String? android;
+  final String? ios;
+
+  StoreLinks({
+    this.android,
+    this.ios,
+  });
+
+  factory StoreLinks.fromJson(Map<String, dynamic> json) {
+    return StoreLinks(
+      android: json['android'],
+      ios: json['ios'],
     );
   }
 }

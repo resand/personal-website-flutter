@@ -323,11 +323,28 @@
   ],
   "projects": [
     {
+      "name": "GDG Community App",
+      "description": "Aplicación móvil Flutter para gestión de eventos GDG con registro RSVP, check-in con QR, dashboard de estadísticas en tiempo real, y descarga de tickets PDF. Integración completa con gdg.community.dev y autenticación para organizadores.",
+      "technologies": [
+        "Flutter",
+        "Firebase",
+        "Firestore",
+        "Android",
+        "iOS"
+      ],
+      "url": null,
+      "store_links": {
+        "android": "https://play.google.com/store/apps/details?id=dev.renes.gdgcommunity",
+        "ios": "https://apps.apple.com/app/id6753957294"
+      },
+      "image_url": "images/projects/gdg_community_es.jpg",
+      "featured": true
+    },
+    {
       "name": "Plataforma de Remesas",
       "description": "Aplicación móvil para envío de remesas y pagos de servicios desde USA hacia LATAM, con arquitectura VIPER y seguridad avanzada.",
       "technologies": ["Swift", "UIKit", "VIPER", "JWE"],
-      "github_url": null,
-      "live_url": null,
+      "url": null,
       "image_url": null,
       "featured": true
     },
@@ -335,8 +352,7 @@
       "name": "SDK Open Banking",
       "description": "Desarrollo de SDKs para Open Banking y PFM con integración multiplataforma y enfoque en experiencia de usuario.",
       "technologies": ["Swift", "Android", "Open Banking", "SDK Development"],
-      "github_url": null,
-      "live_url": null,
+      "url": null,
       "image_url": null,
       "featured": true
     },
@@ -350,8 +366,7 @@
         "Cloud Functions",
         "Firestore"
       ],
-      "github_url": "",
-      "live_url": "https://tickets-sirena.renes.dev",
+      "url": "https://tickets-sirena.renes.dev",
       "image_url": "https://tickets-sirena.renes.dev/images/social-image.png",
       "featured": true
     }
