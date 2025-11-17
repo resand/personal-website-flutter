@@ -341,6 +341,20 @@
       "featured": true
     },
     {
+      "name": "DevFest Campeche Website",
+      "description": "Official DevFest Campeche website built with Flutter Web. Features event information, schedule, speakers, sponsors, and registration system. Responsive design with smooth animations and SEO optimized.",
+      "technologies": [
+        "Flutter",
+        "Web",
+        "Firebase",
+        "Dart"
+      ],
+      "url": "https://devfestcampeche.com",
+      "store_links": null,
+      "image_url": "images/projects/devfest.png",
+      "featured": true
+    },
+    {
       "name": "Scalable Remittance Platform",
       "description": "Mobile application for sending remittances and service payments from USA to LATAM, with VIPER architecture and advanced security.",
       "technologies": ["Swift", "UIKit", "VIPER", "JWE"],

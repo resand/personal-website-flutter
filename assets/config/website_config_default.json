@@ -341,6 +341,20 @@
       "featured": true
     },
     {
+      "name": "Sitio web DevFest Campeche",
+      "description": "Sitio web oficial del DevFest Campeche desarrollado en Flutter Web. Incluye información del evento, agenda, speakers, sponsors, y sistema de registro. Diseño responsivo con animaciones fluidas y optimizado para SEO.",
+      "technologies": [
+        "Flutter",
+        "Web",
+        "Firebase",
+        "Dart"
+      ],
+      "url": "https://devfestcampeche.com",
+      "store_links": null,
+      "image_url": "images/projects/devfest.png",
+      "featured": true
+    },
+    {
       "name": "Plataforma de Remesas",
       "description": "Aplicación móvil para envío de remesas y pagos de servicios desde USA hacia LATAM, con arquitectura VIPER y seguridad avanzada.",
       "technologies": ["Swift", "UIKit", "VIPER", "JWE"],
