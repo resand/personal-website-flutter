@@ -13,6 +13,41 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+## [1.5.0] - 2026-04-25
+
+### Added
+- Mobile-first responsive system in `ResponsiveUtils` with `sectionPadding`, `valueFor`, `isDesktop`, and shared section width constants.
+- Reusable `SectionHeader` widget consumed by every page section.
+- `UrlHelper` utility centralizing `launchUrl` calls with `SnackBar` error feedback.
+- `<noscript>` fallback in `web/index.html` with author name, description and email link.
+- Dynamic `<html lang>` synchronization on locale change via `package:web`.
+- `Semantics` labels on hero avatar, social icon buttons and project images.
+- `loadingBuilder` skeleton on project images and reserved height in blog loading state to prevent CLS.
+- HTML template placeholders for `THEME_COLOR`, `OG_IMAGE_URL` and `AUTHOR_EMAIL`, processed in `scripts/process-html.js`.
+- `retry_button` and `error_loading_config` strings in both locales and `UITexts` model.
+- Local-only documentation files added to `.gitignore` (`CLAUDE.md`, `GITHUB_PROFILE_README.md`, `.claude/`).
+
+### Changed
+- Bumped `font_awesome_flutter` to `^11.0.0` (introduces `FaIconData`) and `google_fonts` to `^8.0.2`.
+- Mobile-first padding applied to about, experience, skills, projects, contact, volunteering, education, certifications, blog, hero and footer sections.
+- Hero avatar size now scales responsively (200/240/300) with consistent radius and `Semantics` wrapper; nameplate gains `softWrap`.
+- Volunteering section now respects `Theme.textTheme` instead of hard-coded 9–12 px font sizes for legibility on mobile.
+- Education section reflows to vertical layout from tablet down and adds `softWrap` on degree/field text.
+- Scroll listener throttled with an 80 ms `Timer` debounce to avoid jank on `_updateCurrentSection`.
+- Hover-activated popup menus (theme + language selectors) now wait 180 ms before opening and cancel on `onExit`.
+- Loader flow: `_isLoading` stays true until critical above-the-fold images precache (avatar + logos) with a 1.5 s timeout, keeping the Lottie visible briefly without blocking on every project image.
+- `index.html`: removed redundant `<meta name="viewport">` (Flutter Web injects its own) and replaced same-URL `hreflang` block with a proper `canonical` + `x-default` setup.
+- Deduplicated `_HoverActivatedPopupMenuButton` between language and theme selectors.
+
+### Fixed
+- 404 errors on `web/images/logos/*.png` during precache: `_imageProviderFor` now picks `NetworkImage` for relative web-root paths instead of treating them as Flutter assets.
+- Image precache no longer uses `http.get` (which never populated Flutter's image cache); replaced with `precacheImage`.
+- Removed the artificial 500 ms delay and the `Future.wait` over every project image, eliminating multi-second startup blocking.
+- `AnimatedBuilder` no longer wraps the whole `MaterialApp`, preventing full-app rebuilds on every theme animation tick.
+- Hard-coded loader/error strings replaced with config-driven values.
+- Type errors (`FaIconData` vs `IconData`) after the font_awesome_flutter major bump in hero, footer and blog sections.
+- Removed orphan widget files: `language_selector_hover.dart`, `theme_selector_hover.dart`, `scroll_animated_section.dart`, `theme_transition_overlay.dart`.
+
 ## [1.0.1] - 2025-10-07
 
 ### Added

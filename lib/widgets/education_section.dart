@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../models/website_config.dart';
 import '../utils/responsive_utils.dart';
 import '../utils/elevation_utils.dart';
+import 'section_header.dart';
 
 class EducationSection extends StatelessWidget {
   final MyWebsiteConfig config;
@@ -15,29 +16,13 @@ class EducationSection extends StatelessWidget {
     }
 
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 40),
+      padding: ResponsiveUtils.sectionPadding(context),
       child: Center(
         child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 1200),
+          constraints: const BoxConstraints(maxWidth: ResponsiveUtils.sectionMaxWidth),
           child: Column(
             children: [
-              Text(
-                config.layout.sectionTitles.education,
-                style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 16),
-              Container(
-                width: 60,
-                height: 4,
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.primary,
-                  borderRadius: BorderRadius.circular(2),
-                ),
-              ),
-              const SizedBox(height: 48),
+              SectionHeader(title: config.layout.sectionTitles.education),
               _buildEducationList(context),
             ],
           ),
@@ -47,24 +32,25 @@ class EducationSection extends StatelessWidget {
   }
 
   Widget _buildEducationList(BuildContext context) {
-    final isMobile = ResponsiveUtils.isMobile(context);
-    
+    final useStackedLayout = !ResponsiveUtils.isDesktop(context);
+
     return Column(
       children: config.education!.asMap().entries.map((entry) {
         final index = entry.key;
         final education = entry.value;
         return Padding(
-          padding: EdgeInsets.only(bottom: index == config.education!.length - 1 ? 0 : 32),
-          child: _buildEducationCard(context, education, isMobile),
+          padding: EdgeInsets.only(bottom: index == config.education!.length - 1 ? 0 : 24),
+          child: _buildEducationCard(context, education, useStackedLayout),
         );
       }).toList(),
     );
   }
 
-  Widget _buildEducationCard(BuildContext context, Education education, bool isMobile) {
+  Widget _buildEducationCard(BuildContext context, Education education, bool useStackedLayout) {
+    final isMobile = ResponsiveUtils.isMobile(context);
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(32),
+      padding: EdgeInsets.all(isMobile ? 20 : 32),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(16),
@@ -79,7 +65,9 @@ class EducationSection extends StatelessWidget {
           width: 1,
         ),
       ),
-      child: isMobile ? _buildMobileLayout(context, education) : _buildDesktopLayout(context, education),
+      child: useStackedLayout
+          ? _buildMobileLayout(context, education)
+          : _buildDesktopLayout(context, education),
     );
   }
 
@@ -134,6 +122,7 @@ class EducationSection extends StatelessWidget {
                 style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
+                softWrap: true,
               ),
               const SizedBox(height: 8),
               Text(
@@ -142,6 +131,7 @@ class EducationSection extends StatelessWidget {
                   color: Theme.of(context).colorScheme.secondary,
                   fontWeight: FontWeight.w500,
                 ),
+                softWrap: true,
               ),
             ],
           ),

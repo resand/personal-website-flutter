@@ -1,6 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
-import 'dart:ui';
+import 'package:web/web.dart' as web;
 import '../models/website_config.dart';
 import 'preferences_service.dart';
 import 'package:logger/logger.dart';
@@ -50,12 +51,22 @@ class LocalizationService {
     if (!supportedLocales.contains(locale)) {
       throw ArgumentError('Unsupported locale: $locale');
     }
-    
+
     _currentLocale = locale;
-    _cachedConfig = null; // Clear cache to reload config
-    
-    // Persist the locale selection
+    _cachedConfig = null;
+
     await PreferencesService.saveLanguage(locale);
+    _syncHtmlLang(locale);
+  }
+
+  static void _syncHtmlLang(String locale) {
+    if (!kIsWeb) return;
+    try {
+      final lang = locale == 'default' ? 'es' : 'en';
+      web.document.documentElement?.setAttribute('lang', lang);
+    } catch (e) {
+      _logger.w('Could not sync html lang: $e');
+    }
   }
 
   static void clearCache() {
@@ -79,6 +90,7 @@ class LocalizationService {
       final String configString = await rootBundle.loadString(configPath);
       final Map<String, dynamic> configJson = json.decode(configString);
       _cachedConfig = MyWebsiteConfig.fromJson(configJson);
+      _syncHtmlLang(currentLang);
       return _cachedConfig!;
     } catch (e, stackTrace) {
       _logger.e('Error loading config from $configPath: $e');

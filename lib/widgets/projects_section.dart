@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../models/website_config.dart';
 import '../utils/responsive_utils.dart';
+import '../utils/url_helper.dart';
+import 'section_header.dart';
 
 class ProjectsSection extends StatelessWidget {
   final MyWebsiteConfig config;
@@ -14,32 +15,13 @@ class ProjectsSection extends StatelessWidget {
     final isMobile = ResponsiveUtils.isMobile(context);
 
     return Container(
-      padding: EdgeInsets.symmetric(
-        vertical: isMobile ? 60 : 80,
-        horizontal: isMobile ? 20 : 40,
-      ),
+      padding: ResponsiveUtils.sectionPadding(context),
       child: Center(
         child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 1200),
+          constraints: const BoxConstraints(maxWidth: ResponsiveUtils.sectionMaxWidth),
           child: Column(
             children: [
-              Text(
-                config.layout.sectionTitles.projects,
-                style: Theme.of(
-                  context,
-                ).textTheme.displaySmall?.copyWith(fontWeight: FontWeight.bold),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 16),
-              Container(
-                width: 60,
-                height: 4,
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.primary,
-                  borderRadius: BorderRadius.circular(2),
-                ),
-              ),
-              const SizedBox(height: 48),
+              SectionHeader(title: config.layout.sectionTitles.projects),
               _buildProjectGrid(context, config.projects, isMobile),
             ],
           ),
@@ -177,32 +159,56 @@ class ProjectsSection extends StatelessWidget {
   }
 
   Widget _buildProjectImage(BuildContext context, Project project) {
+    final imageWidget = project.imageUrl?.isNotEmpty == true
+        ? (project.imageUrl!.startsWith('http')
+              ? Image.network(
+                  project.imageUrl!,
+                  fit: BoxFit.cover,
+                  loadingBuilder: _imageLoadingBuilder,
+                  errorBuilder: (context, error, stackTrace) =>
+                      _buildPlaceholderImage(context),
+                )
+              : Image.network(
+                  project.imageUrl!.startsWith('/') ? project.imageUrl! : '/${project.imageUrl!}',
+                  fit: BoxFit.cover,
+                  loadingBuilder: _imageLoadingBuilder,
+                  errorBuilder: (context, error, stackTrace) =>
+                      Image.asset(
+                        project.imageUrl!,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error2, stackTrace2) =>
+                            _buildPlaceholderImage(context),
+                      ),
+                ))
+        : _buildPlaceholderImage(context);
+
     return ClipRRect(
       borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
       child: Container(
         width: double.infinity,
         height: ResponsiveUtils.isMobile(context) ? 180 : 200,
         color: Theme.of(context).colorScheme.surfaceContainerHighest,
-        child: project.imageUrl?.isNotEmpty == true
-            ? (project.imageUrl!.startsWith('http')
-                  ? Image.network(
-                      project.imageUrl!,
-                      fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) =>
-                          _buildPlaceholderImage(context),
-                    )
-                  : Image.network(
-                      project.imageUrl!.startsWith('/') ? project.imageUrl! : '/${project.imageUrl!}',
-                      fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) =>
-                          Image.asset(
-                            project.imageUrl!,
-                            fit: BoxFit.cover,
-                            errorBuilder: (context, error2, stackTrace2) =>
-                                _buildPlaceholderImage(context),
-                          ),
-                    ))
-            : _buildPlaceholderImage(context),
+        child: Semantics(
+          label: '${project.name} preview image',
+          image: true,
+          child: imageWidget,
+        ),
+      ),
+    );
+  }
+
+  Widget _imageLoadingBuilder(BuildContext context, Widget child, ImageChunkEvent? progress) {
+    if (progress == null) return child;
+    return Center(
+      child: SizedBox(
+        width: 28,
+        height: 28,
+        child: CircularProgressIndicator(
+          strokeWidth: 2,
+          value: progress.expectedTotalBytes != null
+              ? progress.cumulativeBytesLoaded / progress.expectedTotalBytes!
+              : null,
+        ),
       ),
     );
   }
@@ -221,7 +227,7 @@ class ProjectsSection extends StatelessWidget {
         children: [
           if (project.storeLinks!.android?.isNotEmpty == true)
             OutlinedButton.icon(
-              onPressed: () => _launchUrl(project.storeLinks!.android!),
+              onPressed: () => UrlHelper.open(project.storeLinks!.android!),
               icon: const FaIcon(FontAwesomeIcons.googlePlay, size: 16),
               label: const Text(
                 'Android',
@@ -234,7 +240,7 @@ class ProjectsSection extends StatelessWidget {
             ),
           if (project.storeLinks!.ios?.isNotEmpty == true)
             OutlinedButton.icon(
-              onPressed: () => _launchUrl(project.storeLinks!.ios!),
+              onPressed: () => UrlHelper.open(project.storeLinks!.ios!),
               icon: const FaIcon(FontAwesomeIcons.appStore, size: 16),
               label: const Text(
                 'iOS',
@@ -247,7 +253,7 @@ class ProjectsSection extends StatelessWidget {
             ),
           if (hasUrl)
             ElevatedButton.icon(
-              onPressed: () => _launchUrl(project.url!),
+              onPressed: () => UrlHelper.open(project.url!),
               icon: const Icon(Icons.launch, size: 16),
               label: Text(
                 config.layout.uiTexts.viewButton,
@@ -265,7 +271,7 @@ class ProjectsSection extends StatelessWidget {
     // Si no tiene store links pero tiene url
     if (hasUrl) {
       return ElevatedButton.icon(
-        onPressed: () => _launchUrl(project.url!),
+        onPressed: () => UrlHelper.open(project.url!),
         icon: const Icon(Icons.launch, size: 16),
         label: Text(
           config.layout.uiTexts.viewButton,
@@ -297,12 +303,4 @@ class ProjectsSection extends StatelessWidget {
     );
   }
 
-  Future<void> _launchUrl(String url) async {
-    if (url.isNotEmpty) {
-      final uri = Uri.parse(url);
-      if (await canLaunchUrl(uri)) {
-        await launchUrl(uri);
-      }
-    }
-  }
 }

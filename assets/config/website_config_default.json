@@ -337,7 +337,7 @@
         "android": "https://play.google.com/store/apps/details?id=dev.renes.gdgcommunity",
         "ios": "https://apps.apple.com/app/id6753957294"
       },
-      "image_url": "images/projects/gdg_community_es.jpg",
+      "image_url": "images/projects/gdg_community_es.png",
       "featured": true
     },
     {
@@ -533,7 +533,7 @@
       "theme_dark": "Oscuro",
       "config_error": "Error al cargar configuración",
       "unknown_error": "Error desconocido",
-      "config_load_error": "Error al cargar la configuración",
+      "error_loading_config": "Error al cargar la configuración",
       "retry_button": "Reintentar",
       "highlights_title": "Logros destacados:",
       "impact_label": "Impacto:",

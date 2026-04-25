@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/website_config.dart';
 import '../utils/responsive_utils.dart';
+import 'section_header.dart';
 
 class AboutSection extends StatelessWidget {
   final MyWebsiteConfig config;
@@ -16,30 +17,14 @@ class AboutSection extends StatelessWidget {
     final isMobile = ResponsiveUtils.isMobile(context);
     
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 40),
+      padding: ResponsiveUtils.sectionPadding(context),
       color: Theme.of(context).colorScheme.surface,
       child: Center(
         child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 1200),
+          constraints: const BoxConstraints(maxWidth: ResponsiveUtils.sectionMaxWidth),
           child: Column(
             children: [
-              Text(
-                config.layout.sectionTitles.about,
-                style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 16),
-              Container(
-                width: 60,
-                height: 4,
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.primary,
-                  borderRadius: BorderRadius.circular(2),
-                ),
-              ),
-              const SizedBox(height: 48),
+              SectionHeader(title: config.layout.sectionTitles.about),
               isMobile
                   ? Column(
                       children: [

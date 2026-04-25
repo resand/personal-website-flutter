@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../models/website_config.dart';
 import '../utils/responsive_utils.dart';
+import '../utils/url_helper.dart';
 
 class MyWebsiteFooter extends StatelessWidget {
   final MyWebsiteConfig config;
@@ -19,11 +19,19 @@ class MyWebsiteFooter extends StatelessWidget {
     final isMobile = ResponsiveUtils.isMobile(context);
     
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 40),
+      padding: EdgeInsets.symmetric(
+        vertical: isMobile ? 32 : 40,
+        horizontal: ResponsiveUtils.valueFor(
+          context,
+          mobile: ResponsiveUtils.sectionHorizontalMobile,
+          tablet: ResponsiveUtils.sectionHorizontalTablet,
+          desktop: ResponsiveUtils.sectionHorizontalDesktop,
+        ),
+      ),
       color: Theme.of(context).colorScheme.surfaceContainerHighest,
       child: Center(
         child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 1200),
+          constraints: const BoxConstraints(maxWidth: ResponsiveUtils.sectionMaxWidth),
           child: Column(
             children: [
               if (!isMobile)
@@ -184,7 +192,7 @@ class MyWebsiteFooter extends StatelessWidget {
           runSpacing: 12,
           alignment: isMobile ? WrapAlignment.start : WrapAlignment.end,
           children: config.socialLinks.links.where((link) => link.url.isNotEmpty).map((socialLink) {
-            IconData icon;
+            FaIconData icon;
             switch (socialLink.platform.toLowerCase()) {
               case 'linkedin':
                 icon = FontAwesomeIcons.linkedin;
@@ -220,7 +228,7 @@ class MyWebsiteFooter extends StatelessWidget {
             MouseRegion(
               cursor: SystemMouseCursors.click,
               child: GestureDetector(
-                onTap: () => _launchUrl('mailto:${config.personalInfo.email}'),
+                onTap: () => UrlHelper.open('mailto:${config.personalInfo.email}', context: context),
                 child: Text(
                   config.personalInfo.email,
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
@@ -235,11 +243,11 @@ class MyWebsiteFooter extends StatelessWidget {
     );
   }
 
-  Widget _buildSocialIcon(BuildContext context, IconData icon, String url) {
+  Widget _buildSocialIcon(BuildContext context, FaIconData icon, String url) {
     return _SocialIconHoverable(
       icon: icon,
       url: url,
-      onTap: _launchUrl,
+      onTap: (u) => UrlHelper.open(u, context: context),
     );
   }
 
@@ -279,19 +287,11 @@ class MyWebsiteFooter extends StatelessWidget {
     );
   }
 
-  Future<void> _launchUrl(String url) async {
-    if (url.isNotEmpty) {
-      final uri = Uri.parse(url);
-      if (await canLaunchUrl(uri)) {
-        await launchUrl(uri);
-      }
-    }
-  }
 }
 
 
 class _SocialIconHoverable extends StatefulWidget {
-  final IconData icon;
+  final FaIconData icon;
   final String url;
   final Function(String) onTap;
 

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../models/website_config.dart';
 import '../models/blog_post.dart';
 import '../services/blog_service.dart';
 import '../utils/responsive_utils.dart';
 import '../utils/elevation_utils.dart';
+import '../utils/url_helper.dart';
 
 class BlogSection extends StatefulWidget {
   final MyWebsiteConfig config;
@@ -60,11 +60,11 @@ class _BlogSectionState extends State<BlogSection> {
     }
 
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 40),
-      color: Theme.of(context).colorScheme.surface,
+      padding: ResponsiveUtils.sectionPadding(context),
+      color: Theme.of(context).colorScheme.surfaceContainerLow,
       child: Center(
         child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 1200),
+          constraints: const BoxConstraints(maxWidth: ResponsiveUtils.sectionMaxWidth),
           child: Column(
             children: [
               Row(
@@ -119,8 +119,9 @@ class _BlogSectionState extends State<BlogSection> {
 
   Widget _buildContent() {
     if (isLoading) {
-      return const Center(
-        child: CircularProgressIndicator(),
+      return const SizedBox(
+        height: 320,
+        child: Center(child: CircularProgressIndicator()),
       );
     }
 
@@ -203,7 +204,10 @@ class _BlogSectionState extends State<BlogSection> {
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       child: OutlinedButton.icon(
-        onPressed: () => _launchUrl(widget.config.socialLinks.medium ?? 'https://medium.com/@${widget.config.mediumConfig.username}'),
+        onPressed: () => UrlHelper.open(
+          widget.config.socialLinks.medium ?? 'https://medium.com/@${widget.config.mediumConfig.username}',
+          context: context,
+        ),
         icon: const Icon(Icons.launch, size: 18),
         label: Text(widget.config.blogConfig.viewAllText),
         style: OutlinedButton.styleFrom(
@@ -215,14 +219,6 @@ class _BlogSectionState extends State<BlogSection> {
     );
   }
 
-  Future<void> _launchUrl(String url) async {
-    if (url.isNotEmpty) {
-      final uri = Uri.parse(url);
-      if (await canLaunchUrl(uri)) {
-        await launchUrl(uri);
-      }
-    }
-  }
 }
 
 class _BlogCardStateful extends StatefulWidget {
@@ -252,7 +248,7 @@ class _BlogCardStatefulState extends State<_BlogCardStateful> {
       onEnter: (_) => setState(() => isHovered = true),
       onExit: (_) => setState(() => isHovered = false),
       child: GestureDetector(
-        onTap: () => _launchUrl(widget.post.url),
+        onTap: () => UrlHelper.open(widget.post.url, context: context),
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
           decoration: BoxDecoration(
@@ -413,16 +409,7 @@ class _BlogCardStatefulState extends State<_BlogCardStateful> {
     );
   }
 
-  Future<void> _launchUrl(String url) async {
-    if (url.isNotEmpty) {
-      final uri = Uri.parse(url);
-      if (await canLaunchUrl(uri)) {
-        await launchUrl(uri);
-      }
-    }
-  }
-
-  IconData _getSourceIcon(String source) {
+  FaIconData _getSourceIcon(String source) {
     switch (source.toLowerCase()) {
       case 'dev.to':
         return FontAwesomeIcons.dev;

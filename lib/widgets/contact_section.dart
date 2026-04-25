@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 import '../models/website_config.dart';
+import '../utils/responsive_utils.dart';
+import '../utils/url_helper.dart';
+import 'section_header.dart';
 
 class ContactSection extends StatelessWidget {
   final MyWebsiteConfig config;
@@ -10,29 +12,16 @@ class ContactSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 40),
+      padding: ResponsiveUtils.sectionPadding(context),
       child: Center(
         child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 800),
+          constraints: const BoxConstraints(maxWidth: ResponsiveUtils.sectionMaxWidthNarrow),
           child: Column(
             children: [
-              Text(
-                config.layout.contactTexts.letsConnect,
-                style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
-                textAlign: TextAlign.center,
+              SectionHeader(
+                title: config.layout.contactTexts.letsConnect,
+                bottomSpacing: 32,
               ),
-              const SizedBox(height: 16),
-              Container(
-                width: 60,
-                height: 4,
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.primary,
-                  borderRadius: BorderRadius.circular(2),
-                ),
-              ),
-              const SizedBox(height: 32),
               Text(
                 config.layout.contactTexts.projectDescription,
                 style: Theme.of(context).textTheme.titleLarge?.copyWith(
@@ -84,7 +73,7 @@ class ContactSection extends StatelessWidget {
                     MouseRegion(
                       cursor: SystemMouseCursors.click,
                       child: ElevatedButton.icon(
-                        onPressed: () => _launchUrl('mailto:${config.personalInfo.email}'),
+                        onPressed: () => UrlHelper.open('mailto:${config.personalInfo.email}', context: context),
                         icon: const Icon(Icons.send),
                         label: Text(config.layout.contactTexts.sendMessage),
                         style: ElevatedButton.styleFrom(
@@ -107,12 +96,4 @@ class ContactSection extends StatelessWidget {
   }
 
 
-  Future<void> _launchUrl(String url) async {
-    if (url.isNotEmpty) {
-      final uri = Uri.parse(url);
-      if (await canLaunchUrl(uri)) {
-        await launchUrl(uri);
-      }
-    }
-  }
 }

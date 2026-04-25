@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import '../utils/theme_types.dart';
 import '../models/website_config.dart';
@@ -411,18 +412,35 @@ class _HoverActivatedPopupMenuButton<T> extends StatefulWidget {
 
 class _HoverActivatedPopupMenuButtonState<T> extends State<_HoverActivatedPopupMenuButton<T>> {
   final GlobalKey _popupKey = GlobalKey<PopupMenuButtonState>();
+  Timer? _hoverTimer;
+
+  @override
+  void dispose() {
+    _hoverTimer?.cancel();
+    super.dispose();
+  }
+
+  void _scheduleOpen() {
+    _hoverTimer?.cancel();
+    _hoverTimer = Timer(const Duration(milliseconds: 180), () {
+      if (!mounted) return;
+      final dynamic popupButton = _popupKey.currentState;
+      if (popupButton != null) {
+        popupButton.showButtonMenu();
+      }
+    });
+  }
+
+  void _cancelOpen() {
+    _hoverTimer?.cancel();
+  }
 
   @override
   Widget build(BuildContext context) {
     return MouseRegion(
       cursor: SystemMouseCursors.click,
-      onEnter: (_) {
-        // Activar el PopupMenuButton con hover
-        final dynamic popupButton = _popupKey.currentState;
-        if (popupButton != null) {
-          popupButton.showButtonMenu();
-        }
-      },
+      onEnter: (_) => _scheduleOpen(),
+      onExit: (_) => _cancelOpen(),
       child: PopupMenuButton<T>(
         key: _popupKey,
         onSelected: widget.onSelected,

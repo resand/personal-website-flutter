@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import '../models/website_config.dart';
 import '../utils/responsive_utils.dart';
@@ -43,7 +44,8 @@ class MyWebsiteScreen extends StatefulWidget {
 
 class _MyWebsiteScreenState extends State<MyWebsiteScreen> with TickerProviderStateMixin {
   String? currentSection = 'hero';
-  
+
+  Timer? _scrollDebounce;
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final ScrollController _scrollController = ScrollController();
@@ -64,13 +66,18 @@ class _MyWebsiteScreenState extends State<MyWebsiteScreen> with TickerProviderSt
   @override
   void initState() {
     super.initState();
-    _scrollController.addListener(_updateCurrentSection);
+    _scrollController.addListener(_onScroll);
   }
-  
-  
+
+  void _onScroll() {
+    if (_scrollDebounce?.isActive ?? false) return;
+    _scrollDebounce = Timer(const Duration(milliseconds: 80), _updateCurrentSection);
+  }
+
   @override
   void dispose() {
-    _scrollController.removeListener(_updateCurrentSection);
+    _scrollDebounce?.cancel();
+    _scrollController.removeListener(_onScroll);
     _scrollController.dispose();
     super.dispose();
   }
@@ -186,17 +193,14 @@ class _MyWebsiteScreenState extends State<MyWebsiteScreen> with TickerProviderSt
 
 
   double _getNavbarHeight(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final isMobile = screenWidth < 768;
-    final isTablet = screenWidth >= 768 && screenWidth < 1200;
     final logoHeight = widget.config.layout.logoHeight;
-    
-    if (isMobile) {
-      return (logoHeight * 0.7) + 32; // Mobile: reduced logo + 16px padding * 2
-    } else if (isTablet) {
-      return logoHeight + 60; // Tablet: logo height + extra space for two-row layout
+
+    if (ResponsiveUtils.isMobile(context)) {
+      return (logoHeight * 0.7) + 32;
+    } else if (ResponsiveUtils.isTablet(context)) {
+      return logoHeight + 60;
     } else {
-      return logoHeight + 48; // Desktop: logo height + 24px padding * 2
+      return logoHeight + 48;
     }
   }
 

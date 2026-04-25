@@ -3,7 +3,6 @@
 <head>
   <base href="$FLUTTER_BASE_HREF">
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
   
   <!-- Primary Meta Tags -->
@@ -14,10 +13,9 @@
   <meta name="author" content="{{AUTHOR_NAME}}">
   <meta name="robots" content="index, follow">
   
-  <!-- Language alternates for SEO (dynamic switching on same URL) -->
-  <link rel="alternate" hreflang="en" href="{{BASE_URL}}">
-  <link rel="alternate" hreflang="es" href="{{BASE_URL}}">
-  <link rel="alternate" hreflang="x-default" href="{{BASE_URL}}">
+  <!-- Canonical URL -->
+  <link rel="canonical" href="{{SITE_URL}}">
+  <link rel="alternate" hreflang="x-default" href="{{SITE_URL}}">
   
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
@@ -42,9 +40,9 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="{{AUTHOR_NAME}}">
   <meta name="application-name" content="{{SITE_NAME}}">
-  <meta name="theme-color" content="#374151">
-  <meta name="msapplication-TileColor" content="#374151">
-  <meta name="msapplication-navbutton-color" content="#374151">
+  <meta name="theme-color" content="{{THEME_COLOR}}">
+  <meta name="msapplication-TileColor" content="{{THEME_COLOR}}">
+  <meta name="msapplication-navbutton-color" content="{{THEME_COLOR}}">
   
   <!-- Favicons -->
   <link rel="icon" type="image/png" href="/icons/favicon-96x96.png" sizes="96x96" />
@@ -102,6 +100,15 @@
   </script>
 </head>
 <body>
+  <noscript>
+    <div style="font-family: system-ui, -apple-system, sans-serif; max-width: 720px; margin: 48px auto; padding: 24px; line-height: 1.6;">
+      <h1>{{AUTHOR_NAME}}</h1>
+      <p>{{META_DESCRIPTION}}</p>
+      <p>This site needs JavaScript to display the full experience. You can still reach me at
+        <a href="mailto:{{AUTHOR_EMAIL}}">{{AUTHOR_EMAIL}}</a>.
+      </p>
+    </div>
+  </noscript>
   <script src="flutter_bootstrap.js" async></script>
 </body>
 </html>

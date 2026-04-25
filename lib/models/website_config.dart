@@ -735,6 +735,7 @@ class UITexts {
   final String configErrorTitle;
   final String errorLoadingConfig;
   final String unknownError;
+  final String retryButton;
   final String changeLanguage;
   final String changeTheme;
   final String highlightsTitle;
@@ -761,6 +762,7 @@ class UITexts {
     required this.configErrorTitle,
     required this.errorLoadingConfig,
     required this.unknownError,
+    required this.retryButton,
     required this.changeLanguage,
     required this.changeTheme,
     required this.highlightsTitle,
@@ -787,8 +789,9 @@ class UITexts {
       themeLightDrawer: json['theme_light_drawer'] ?? 'Light Mode',
       themeDarkDrawer: json['theme_dark_drawer'] ?? 'Dark Mode',
       configErrorTitle: json['config_error_title'] ?? 'Error loading configuration',
-      errorLoadingConfig: json['error_loading_config'] ?? 'Error cargando configuración',
-      unknownError: json['unknown_error'] ?? 'Error desconocido',
+      errorLoadingConfig: json['error_loading_config'] ?? json['config_load_error'] ?? 'Error loading configuration',
+      unknownError: json['unknown_error'] ?? 'Unknown error',
+      retryButton: json['retry_button'] ?? 'Retry',
       changeLanguage: json['change_language'] ?? 'Change language',
       changeTheme: json['change_theme'] ?? 'Change theme',
       highlightsTitle: json['highlights_title'] ?? 'Key Highlights:',

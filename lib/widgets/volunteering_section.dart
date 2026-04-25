@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 import '../models/website_config.dart';
 import '../utils/responsive_utils.dart';
 import '../utils/elevation_utils.dart';
+import '../utils/url_helper.dart';
+import 'section_header.dart';
 
 class VolunteeringSection extends StatelessWidget {
   final MyWebsiteConfig config;
@@ -11,33 +12,15 @@ class VolunteeringSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isMobile = ResponsiveUtils.isMobile(context);
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 40),
-      color: Theme.of(context).colorScheme.surface,
+      padding: ResponsiveUtils.sectionPadding(context),
+      color: Theme.of(context).colorScheme.surfaceContainerLow,
       child: Center(
         child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 1200),
+          constraints: const BoxConstraints(maxWidth: ResponsiveUtils.sectionMaxWidth),
           child: Column(
             children: [
-              Text(
-                config.layout.sectionTitles.volunteering,
-                style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
-                textAlign: TextAlign.center,
-              ),
-              SizedBox(height: isMobile ? 12 : 16),
-              Container(
-                width: 60,
-                height: 4,
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.primary,
-                  borderRadius: BorderRadius.circular(2),
-                ),
-              ),
-              const SizedBox(height: 48),
-              // Use a more flexible layout for varying content heights
+              SectionHeader(title: config.layout.sectionTitles.volunteering),
               ResponsiveUtils.isMobile(context)
                 ? Column(
                     children: config.volunteering.map((volunteering) => 
@@ -111,18 +94,22 @@ class VolunteeringSection extends StatelessWidget {
                     children: [
                       Text(
                         volunteering.role,
-                        style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                        style: (isMobile
+                                ? Theme.of(context).textTheme.titleMedium
+                                : Theme.of(context).textTheme.headlineSmall)
+                            ?.copyWith(
                           fontWeight: FontWeight.bold,
                           color: Theme.of(context).colorScheme.primary,
-                          fontSize: isMobile ? 12 : null,
                         ),
                       ),
-                      SizedBox(height: isMobile ? 1 : 4),
+                      const SizedBox(height: 4),
                       Text(
                         volunteering.organization,
-                        style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        style: (isMobile
+                                ? Theme.of(context).textTheme.bodyMedium
+                                : Theme.of(context).textTheme.titleMedium)
+                            ?.copyWith(
                           fontWeight: FontWeight.w600,
-                          fontSize: isMobile ? 12 : null,
                         ),
                       ),
                     ],
@@ -130,11 +117,11 @@ class VolunteeringSection extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: isMobile ? 6 : 12),
+            const SizedBox(height: 12),
             Container(
               padding: EdgeInsets.symmetric(
-                horizontal: isMobile ? 8 : 12, 
-                vertical: isMobile ? 3 : 6
+                horizontal: isMobile ? 10 : 12,
+                vertical: isMobile ? 4 : 6,
               ),
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.1),
@@ -145,21 +132,20 @@ class VolunteeringSection extends StatelessWidget {
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   color: Theme.of(context).colorScheme.secondary,
                   fontWeight: FontWeight.w500,
-                  fontSize: isMobile ? 9 : null,
                 ),
               ),
             ),
-            SizedBox(height: isMobile ? 6 : 12),
+            const SizedBox(height: 12),
             Text(
               volunteering.description,
-              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                height: 1.4,
-                fontSize: isMobile ? 12 : null,
-              ),
+              style: (isMobile
+                      ? Theme.of(context).textTheme.bodyMedium
+                      : Theme.of(context).textTheme.bodyLarge)
+                  ?.copyWith(height: 1.5),
             ),
-            SizedBox(height: isMobile ? 6 : 12),
+            const SizedBox(height: 12),
             Container(
-              padding: EdgeInsets.all(isMobile ? 6 : 16),
+              padding: EdgeInsets.all(isMobile ? 12 : 16),
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.05),
                 borderRadius: BorderRadius.circular(12),
@@ -173,9 +159,9 @@ class VolunteeringSection extends StatelessWidget {
                   Icon(
                     Icons.trending_up,
                     color: Theme.of(context).colorScheme.primary,
-                    size: isMobile ? 16 : 20,
+                    size: isMobile ? 18 : 20,
                   ),
-                  SizedBox(width: isMobile ? 6 : 8),
+                  const SizedBox(width: 8),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -183,18 +169,16 @@ class VolunteeringSection extends StatelessWidget {
                       children: [
                         Text(
                           config.layout.uiTexts.impactLabel,
-                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          style: Theme.of(context).textTheme.labelMedium?.copyWith(
                             fontWeight: FontWeight.w600,
                             color: Theme.of(context).colorScheme.primary,
-                            fontSize: isMobile ? 9 : null,
                           ),
                         ),
-                        SizedBox(height: isMobile ? 1 : 4),
+                        const SizedBox(height: 4),
                         Text(
                           volunteering.impact,
                           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            height: 1.4,
-                            fontSize: isMobile ? 12 : null,
+                            height: 1.5,
                           ),
                         ),
                       ],
@@ -204,21 +188,18 @@ class VolunteeringSection extends StatelessWidget {
               ),
             ),
             if (volunteering.website?.isNotEmpty == true) ...[
-              SizedBox(height: isMobile ? 8 : 12),
+              const SizedBox(height: 12),
               SizedBox(
                 width: double.infinity,
                 child: MouseRegion(
                   cursor: SystemMouseCursors.click,
                   child: OutlinedButton.icon(
-                    onPressed: () => _launchUrl(volunteering.website!),
-                    icon: Icon(Icons.language, size: isMobile ? 14 : 16),
-                    label: Text(
-                      config.layout.uiTexts.viewOrganization,
-                      style: TextStyle(fontSize: isMobile ? 12 : null),
-                    ),
+                    onPressed: () => UrlHelper.open(volunteering.website!, context: context),
+                    icon: const Icon(Icons.language, size: 16),
+                    label: Text(config.layout.uiTexts.viewOrganization),
                     style: OutlinedButton.styleFrom(
                       padding: EdgeInsets.symmetric(
-                        vertical: isMobile ? 8 : 12
+                        vertical: isMobile ? 10 : 12,
                       ),
                     ),
                   ),
@@ -228,14 +209,5 @@ class VolunteeringSection extends StatelessWidget {
           ],
         ),
     );
-  }
-
-  Future<void> _launchUrl(String url) async {
-    if (url.isNotEmpty) {
-      final uri = Uri.parse(url);
-      if (await canLaunchUrl(uri)) {
-        await launchUrl(uri);
-      }
-    }
   }
 }

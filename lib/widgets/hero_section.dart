@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../models/website_config.dart';
 import '../utils/responsive_utils.dart';
+import '../utils/url_helper.dart';
 
 class HeroSection extends StatelessWidget {
   final MyWebsiteConfig config;
@@ -12,13 +12,13 @@ class HeroSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isMobile = ResponsiveUtils.isMobile(context);
-    
+
     return Container(
-      padding: const EdgeInsets.all(40),
-      constraints: const BoxConstraints(minHeight: 600),
+      padding: ResponsiveUtils.sectionPadding(context),
+      constraints: BoxConstraints(minHeight: isMobile ? 480 : 600),
       child: Center(
         child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 1200),
+          constraints: const BoxConstraints(maxWidth: ResponsiveUtils.sectionMaxWidth),
           child: isMobile ? _buildMobileLayout(context) : _buildDesktopLayout(context),
         ),
       ),
@@ -71,6 +71,7 @@ class HeroSection extends StatelessWidget {
             fontWeight: FontWeight.bold,
             height: 1.1,
           ),
+          softWrap: true,
         ),
         const SizedBox(height: 12),
         Text(
@@ -102,7 +103,7 @@ class HeroSection extends StatelessWidget {
         MouseRegion(
           cursor: SystemMouseCursors.click,
           child: ElevatedButton.icon(
-            onPressed: () => _launchUrl('mailto:${config.personalInfo.email}'),
+            onPressed: () => UrlHelper.open('mailto:${config.personalInfo.email}', context: context),
             icon: const FaIcon(FontAwesomeIcons.google, size: 18),
             label: Text(config.layout.heroTexts.contactButton),
             style: ElevatedButton.styleFrom(
@@ -117,33 +118,46 @@ class HeroSection extends StatelessWidget {
   }
 
   Widget _buildAvatar(BuildContext context) {
+    final size = ResponsiveUtils.valueFor(
+      context,
+      mobile: 200,
+      tablet: 240,
+      desktop: 300,
+    );
+    final hasAvatar = config.personalInfo.avatarUrl.isNotEmpty;
     return Center(
-      child: Container(
-        width: 300,
-        height: 300,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          boxShadow: [
-            BoxShadow(
-              color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.3),
-              blurRadius: 20,
-              offset: const Offset(0, 10),
-            ),
-          ],
-        ),
-        child: CircleAvatar(
-          radius: 150,
-          backgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest,
-          backgroundImage: config.personalInfo.avatarUrl.startsWith('http')
-              ? NetworkImage(config.personalInfo.avatarUrl)
-              : AssetImage(config.personalInfo.avatarUrl) as ImageProvider,
-                child: config.personalInfo.avatarUrl.isEmpty
-                    ? Icon(
-                        Icons.person,
-                        size: 100,
-                        color: Theme.of(context).colorScheme.onSurface,
-                      )
-                    : null,
+      child: Semantics(
+        label: '${config.personalInfo.name} avatar',
+        image: true,
+        child: Container(
+          width: size,
+          height: size,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            boxShadow: [
+              BoxShadow(
+                color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.3),
+                blurRadius: 20,
+                offset: const Offset(0, 10),
+              ),
+            ],
+          ),
+          child: CircleAvatar(
+            radius: size / 2,
+            backgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest,
+            backgroundImage: hasAvatar
+                ? (config.personalInfo.avatarUrl.startsWith('http')
+                    ? NetworkImage(config.personalInfo.avatarUrl)
+                    : AssetImage(config.personalInfo.avatarUrl) as ImageProvider)
+                : null,
+            child: !hasAvatar
+                ? Icon(
+                    Icons.person,
+                    size: size * 0.35,
+                    color: Theme.of(context).colorScheme.onSurface,
+                  )
+                : null,
+          ),
         ),
       ),
     );
@@ -223,7 +237,7 @@ class HeroSection extends StatelessWidget {
   }
 
   Widget _buildSocialIcon(BuildContext context, String platform, String url) {
-    IconData icon;
+    FaIconData icon;
     switch (platform.toLowerCase()) {
       case 'github':
         icon = FontAwesomeIcons.github;
@@ -252,8 +266,11 @@ class HeroSection extends StatelessWidget {
       child: AnimatedScale(
         scale: 1.0,
         duration: const Duration(milliseconds: 200),
-        child: IconButton(
-          onPressed: () => _launchUrl(url),
+        child: Semantics(
+          button: true,
+          label: '$platform profile',
+          child: IconButton(
+          onPressed: () => UrlHelper.open(url, context: context),
           icon: FaIcon(icon),
           tooltip: platform,
           style: IconButton.styleFrom(
@@ -270,16 +287,8 @@ class HeroSection extends StatelessWidget {
             ),
           ),
         ),
+        ),
       ),
     );
-  }
-
-  Future<void> _launchUrl(String url) async {
-    if (url.isNotEmpty) {
-      final uri = Uri.parse(url);
-      if (await canLaunchUrl(uri)) {
-        await launchUrl(uri);
-      }
-    }
   }
 }

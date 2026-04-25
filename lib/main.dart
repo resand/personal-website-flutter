@@ -1,6 +1,6 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:http/http.dart' as http;
 import 'screens/website_screen.dart';
 import 'services/config_service.dart';
 import 'services/theme_service.dart';
@@ -12,12 +12,9 @@ import 'utils/theme_types.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
-  // Initialize preferences first
+
   await PreferencesService.init();
-  
-  // Language flags are now handled directly in the language selector
-  
+
   runApp(const MyWebsite());
 }
 
@@ -42,10 +39,9 @@ class _MyWebsiteState extends State<MyWebsite> with TickerProviderStateMixin {
       duration: const Duration(milliseconds: 600),
       vsync: this,
     );
-    
-    // Load saved theme synchronously (PreferencesService already initialized in main)
+
     _themeMode = PreferencesService.getSavedTheme() ?? ThemeModeType.auto;
-    
+
     _loadConfig();
   }
 
@@ -64,30 +60,26 @@ class _MyWebsiteState extends State<MyWebsite> with TickerProviderStateMixin {
   Future<void> _loadConfig() async {
     try {
       AppLogger.info('Loading config...');
-      
-      // Load config without artificial delays
+
       final loadedConfig = await ConfigService.loadConfig();
-      
+
       AppLogger.success('Config loaded successfully');
-      
-      // Set config immediately but keep loading until resources are ready
+
       setState(() {
         _config = loadedConfig;
-        
-        // Only use config default theme if no theme was saved
+
         if (PreferencesService.getSavedTheme() == null) {
           _themeMode = _parseThemeModeFromConfig(loadedConfig.theme.defaultMode);
         }
       });
-      
-      // Wait for critical resources to load
-      await _waitForResourcesToLoad(loadedConfig);
-      
-      // Hide the loader - language selector loads quickly now
-      setState(() {
-        _isLoading = false;
-      });
-      
+
+      await _precacheAboveTheFoldImages(loadedConfig);
+
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
+      }
     } catch (e, stackTrace) {
       AppLogger.error('Error loading config: $e');
       AppLogger.error('Stack trace: $stackTrace');
@@ -98,135 +90,57 @@ class _MyWebsiteState extends State<MyWebsite> with TickerProviderStateMixin {
     }
   }
 
-  Future<void> _waitForResourcesToLoad(MyWebsiteConfig config) async {
-    AppLogger.info('Waiting for ALL resources to load...');
-    
-    final List<Future<void>> resourceFutures = [];
-    
-    // Preload avatar image
-    if (config.personalInfo.avatarUrl.isNotEmpty) {
-      resourceFutures.add(_preloadImage(config.personalInfo.avatarUrl));
-    }
-    
-    // Preload logo images
-    if (config.personalInfo.logoLightUrl != null && config.personalInfo.logoLightUrl!.isNotEmpty) {
-      resourceFutures.add(_preloadImage(config.personalInfo.logoLightUrl!));
-    }
-    if (config.personalInfo.logoDarkUrl != null && config.personalInfo.logoDarkUrl!.isNotEmpty) {
-      resourceFutures.add(_preloadImage(config.personalInfo.logoDarkUrl!));
-    }
-    
-    // Preload ALL project images
-    for (final project in config.projects) {
-      if (project.imageUrl != null && project.imageUrl!.isNotEmpty) {
-        resourceFutures.add(_preloadImage(project.imageUrl!));
-      }
-    }
-    
-    // Experience and volunteering don't currently have images to preload
-    // If needed in the future, add image preloading here
-    
-    // Preload skills images (if any)
-    // Skills typically don't have images, but we're ready for it
-    
-    // Preload blog images (if any)
-    // Blog images come from RSS feeds, we'll handle them separately
-    resourceFutures.add(_preloadBlogImages());
-    
-    // Language flags are now handled directly in the language selector
-    
-    // Preload any additional images from layout or theme
-    _preloadAdditionalImages(config, resourceFutures);
-    
-    AppLogger.info('Preloading ${resourceFutures.length} resources...');
-    
-    // Wait for ALL images to load
-    if (resourceFutures.isNotEmpty) {
-      try {
-        await Future.wait(resourceFutures);
-        AppLogger.success('All resources loaded successfully');
-      } catch (e) {
-        AppLogger.warning('Some resources failed to load: $e');
-        // Continue anyway - don't block the app
-      }
-    }
-    
-    // Additional small delay to ensure DOM is ready
-    await Future.delayed(const Duration(milliseconds: 500));
-  }
-
-  Future<void> _preloadImage(String imageUrl) async {
-    try {
-      if (imageUrl.startsWith('http')) {
-        // For network images, we'll use a simple fetch to preload
-        await _preloadNetworkImage(imageUrl);
-      } else if (imageUrl.startsWith('images/') || imageUrl.startsWith('/images/')) {
-        // For web root images (like logos), skip preloading to avoid asset loading attempts
-        AppLogger.info('Skipping preload for web root image: $imageUrl');
+  Future<void> _precacheAboveTheFoldImages(MyWebsiteConfig config) async {
+    final completer = Completer<void>();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      if (!mounted) {
+        completer.complete();
         return;
-      } else {
-        // For true local assets, use precacheImage
-        await _preloadLocalImage(imageUrl);
       }
-    } catch (e) {
-      AppLogger.warning('Failed to preload image $imageUrl: $e');
-    }
-  }
+      final ctx = context;
 
-  Future<void> _preloadNetworkImage(String imageUrl) async {
-    try {
-      final response = await http.get(Uri.parse(imageUrl))
-          .timeout(const Duration(seconds: 10));
-      if (response.statusCode == 200) {
-        AppLogger.info('Successfully preloaded network image: $imageUrl');
-      } else {
-        AppLogger.warning('Failed to preload network image $imageUrl: ${response.statusCode}');
+      final urls = <String>[
+        config.personalInfo.avatarUrl,
+        if (config.personalInfo.logoLightUrl != null) config.personalInfo.logoLightUrl!,
+        if (config.personalInfo.logoDarkUrl != null) config.personalInfo.logoDarkUrl!,
+      ];
+
+      final futures = <Future<void>>[];
+      for (final url in urls) {
+        final provider = _imageProviderFor(url);
+        if (provider == null) continue;
+        futures.add(
+          precacheImage(provider, ctx).catchError(
+            (e) => AppLogger.warning('Precache failed for $url: $e'),
+          ),
+        );
       }
-    } catch (e) {
-      AppLogger.warning('Error preloading network image $imageUrl: $e');
+
+      await Future.wait(futures).timeout(
+        const Duration(milliseconds: 1500),
+        onTimeout: () {
+          AppLogger.info('Image precache timeout reached, continuing.');
+          return [];
+        },
+      );
+      completer.complete();
+    });
+    return completer.future;
+  }
+
+  ImageProvider? _imageProviderFor(String url) {
+    if (url.isEmpty) return null;
+    if (url.startsWith('http://') || url.startsWith('https://')) {
+      return NetworkImage(url);
     }
-  }
-
-  Future<void> _preloadLocalImage(String imageUrl) async {
-    // For local images, we can use precacheImage
-    try {
-      await precacheImage(AssetImage(imageUrl), context)
-          .timeout(const Duration(seconds: 5));
-      AppLogger.info('Successfully precached local image: $imageUrl');
-    } catch (e) {
-      AppLogger.warning('Failed to precache local image $imageUrl: $e');
+    if (url.startsWith('assets/')) {
+      return AssetImage(url);
     }
+    final webPath = url.startsWith('/') ? url : '/$url';
+    return NetworkImage(webPath);
   }
-
-  void _preloadAdditionalImages(MyWebsiteConfig config, List<Future<void>> resourceFutures) {
-    // Preload any background images or decorative images
-    // These would be defined in the theme or layout config if they exist
-    
-    // Preload any social media icons or external images
-    // These are typically handled by the UI framework, but we can preload them if needed
-    
-    // Add any other images that might be defined in the future
-    // This method is ready for expansion when new image fields are added
-  }
-
-  Future<void> _preloadBlogImages() async {
-    AppLogger.info('Preloading blog images...');
-    
-    try {
-      // Blog images come from RSS feeds and are loaded dynamically
-      // We can't preload them here as they're fetched from external sources
-      // But we can add a small delay to ensure the blog service is ready
-      await Future.delayed(const Duration(milliseconds: 100));
-      AppLogger.info('Blog service ready for dynamic image loading');
-      
-    } catch (e) {
-      AppLogger.warning('Failed to prepare blog service: $e');
-    }
-  }
-
 
   Future<void> _onLanguageChanged() async {
-    // Reload config to reflect language changes without showing loader
     try {
       final newConfig = await ConfigService.loadConfig();
       setState(() {
@@ -257,11 +171,9 @@ class _MyWebsiteState extends State<MyWebsite> with TickerProviderStateMixin {
           break;
       }
     });
-    
-    // Persist theme selection
+
     PreferencesService.saveTheme(_themeMode);
-    
-    // Trigger button animation
+
     _animationController.forward().then((_) {
       _animationController.reverse();
     });
@@ -271,8 +183,7 @@ class _MyWebsiteState extends State<MyWebsite> with TickerProviderStateMixin {
     setState(() {
       _themeMode = newTheme;
     });
-    
-    // Persist theme selection
+
     PreferencesService.saveTheme(newTheme);
   }
 
@@ -288,30 +199,27 @@ class _MyWebsiteState extends State<MyWebsite> with TickerProviderStateMixin {
   }
 
   Widget _buildLoader() {
-    // Always use Lottie loader - hardcoded
     return _buildLottieLoader();
   }
 
   Widget _buildDefaultLoader() {
+    final accentHex = _config?.theme.lightColors.accent;
+    final color = accentHex != null
+        ? Color(int.parse('FF${accentHex.replaceAll('#', '')}', radix: 16))
+        : Theme.of(context).colorScheme.primary;
     return CircularProgressIndicator(
       strokeWidth: 3,
-      valueColor: AlwaysStoppedAnimation<Color>(
-        _config?.theme.lightColors.accent != null 
-          ? Color(int.parse('FF${_config!.theme.lightColors.accent.replaceAll('#', '')}', radix: 16))
-          : const Color(0xFF10B981) // Default accent color
-      ),
+      valueColor: AlwaysStoppedAnimation<Color>(color),
     );
   }
 
   Widget _buildLottieLoader() {
-    // Determine current theme mode
-    final bool isDarkMode = _themeMode == ThemeModeType.dark || 
-        (_themeMode == ThemeModeType.auto && 
-         WidgetsBinding.instance.platformDispatcher.platformBrightness == Brightness.dark);
+    final bool isDarkMode = _themeMode == ThemeModeType.dark ||
+        (_themeMode == ThemeModeType.auto &&
+            WidgetsBinding.instance.platformDispatcher.platformBrightness == Brightness.dark);
 
-    // Hardcoded local Lottie path - always loader.json
     const String lottiePath = 'assets/lotties/loader.json';
-    
+
     try {
       return _buildLottieWithDynamicColor(lottiePath, isDarkMode, false);
     } catch (e) {
@@ -321,18 +229,17 @@ class _MyWebsiteState extends State<MyWebsite> with TickerProviderStateMixin {
   }
 
   Widget _buildLottieWithDynamicColor(String path, bool isDarkMode, bool isUrl) {
-    // Choose color based on theme configuration
-    final Color lottieColor = _config != null 
-        ? (isDarkMode 
+    final Color lottieColor = _config != null
+        ? (isDarkMode
             ? Color(int.parse('FF${_config!.theme.darkColors.onSurface.replaceAll('#', '')}', radix: 16))
             : Color(int.parse('FF${_config!.theme.lightColors.onSurface.replaceAll('#', '')}', radix: 16)))
         : (isDarkMode ? const Color(0xFFF9FAFB) : const Color(0xFF374151));
-    
+
     return FutureBuilder<double>(
       future: EnvService.getLoaderHeight(),
       builder: (context, heightSnapshot) {
         final double size = heightSnapshot.data ?? 150.0;
-        
+
         try {
           if (isUrl) {
             return SizedBox(
@@ -358,8 +265,6 @@ class _MyWebsiteState extends State<MyWebsite> with TickerProviderStateMixin {
               ),
             );
           } else {
-            // For local files, try asset loading with color filter
-            AppLogger.info('Loading Lottie asset with dynamic color: $path (${isDarkMode ? "dark" : "light"} mode)');
             return SizedBox(
               width: size,
               height: size,
@@ -391,11 +296,17 @@ class _MyWebsiteState extends State<MyWebsite> with TickerProviderStateMixin {
     );
   }
 
+  String _errorTitleText() {
+    return _config?.layout.uiTexts.errorLoadingConfig ?? 'Error loading configuration';
+  }
+
+  String _retryButtonText() {
+    return _config?.layout.uiTexts.retryButton ?? 'Retry';
+  }
 
   @override
   Widget build(BuildContext context) {
-    // Use config title if available, fallback to generic title
-    final appTitle = _config != null 
+    final appTitle = _config != null
         ? '${_config!.personalInfo.name} | ${_config!.personalInfo.title}'
         : 'Loading...';
 
@@ -416,7 +327,7 @@ class _MyWebsiteState extends State<MyWebsite> with TickerProviderStateMixin {
         ),
       );
     }
-    
+
     if (_error != null) {
       return MaterialApp(
         title: appTitle,
@@ -425,9 +336,9 @@ class _MyWebsiteState extends State<MyWebsite> with TickerProviderStateMixin {
         darkTheme: ThemeData.dark(),
         themeMode: _getThemeMode(),
         home: Scaffold(
-          body: Container(
-            color: Colors.transparent,
-            child: Center(
+          body: Center(
+            child: Padding(
+              padding: const EdgeInsets.all(24),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -437,9 +348,10 @@ class _MyWebsiteState extends State<MyWebsite> with TickerProviderStateMixin {
                     color: Theme.of(context).colorScheme.error,
                   ),
                   const SizedBox(height: 20),
-                  const Text(
-                    'Error al cargar la configuración',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  Text(
+                    _errorTitleText(),
+                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 10),
                   Text(
@@ -456,7 +368,7 @@ class _MyWebsiteState extends State<MyWebsite> with TickerProviderStateMixin {
                       });
                       _loadConfig();
                     },
-                    child: const Text('Reintentar'),
+                    child: Text(_retryButtonText()),
                   ),
                 ],
               ),
@@ -465,30 +377,25 @@ class _MyWebsiteState extends State<MyWebsite> with TickerProviderStateMixin {
         ),
       );
     }
-    
+
     final lightTheme = ThemeService.createLightTheme(_config!.theme);
     final darkTheme = ThemeService.createDarkTheme(_config!.theme);
 
-    return AnimatedBuilder(
-      animation: _animationController,
-      builder: (context, child) {
-        return MaterialApp(
-          title: '${_config!.personalInfo.name} | ${_config!.personalInfo.title}',
-          debugShowCheckedModeBanner: false,
-          theme: lightTheme,
-          darkTheme: darkTheme,
-          themeMode: _getThemeMode(),
-          home: MyWebsiteScreen(
-            config: _config!,
-            onThemeToggle: _cycleTheme,
-            onThemeChanged: _changeTheme,
-            themeMode: _themeMode,
-            animationController: _animationController,
-            onLanguageChanged: _onLanguageChanged,
-            isLoadingComplete: !_isLoading,
-          ),
-        );
-      },
+    return MaterialApp(
+      title: '${_config!.personalInfo.name} | ${_config!.personalInfo.title}',
+      debugShowCheckedModeBanner: false,
+      theme: lightTheme,
+      darkTheme: darkTheme,
+      themeMode: _getThemeMode(),
+      home: MyWebsiteScreen(
+        config: _config!,
+        onThemeToggle: _cycleTheme,
+        onThemeChanged: _changeTheme,
+        themeMode: _themeMode,
+        animationController: _animationController,
+        onLanguageChanged: _onLanguageChanged,
+        isLoadingComplete: !_isLoading,
+      ),
     );
   }
 }

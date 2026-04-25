@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/website_config.dart';
 import '../utils/theme_types.dart';
+import '../utils/responsive_utils.dart';
 import 'theme_selector_dropdown.dart';
 import 'language_selector.dart';
 
@@ -249,15 +250,19 @@ class _MyWebsiteNavigationBarState extends State<MyWebsiteNavigationBar> with Si
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final isMobile = screenWidth < 768;
-    final isTablet = screenWidth >= 768 && screenWidth < 1200;
-    
+    final isMobile = ResponsiveUtils.isMobile(context);
+    final isTablet = ResponsiveUtils.isTablet(context);
+
     return Container(
       width: double.infinity,
       padding: EdgeInsets.symmetric(
-        horizontal: 40,  // Same as footer padding
-        vertical: isMobile ? 16 : (isTablet ? 20 : 24)
+        horizontal: ResponsiveUtils.valueFor(
+          context,
+          mobile: ResponsiveUtils.sectionHorizontalMobile,
+          tablet: ResponsiveUtils.sectionHorizontalTablet,
+          desktop: ResponsiveUtils.sectionHorizontalDesktop,
+        ),
+        vertical: isMobile ? 16 : (isTablet ? 20 : 24),
       ),
       child: Row(
         children: [
