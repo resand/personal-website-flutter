@@ -629,14 +629,8 @@ class _MyWebsiteScreenState extends State<MyWebsiteScreen> with TickerProviderSt
               ],
             ),
           ),
-          _buildDrawerItem(widget.config.layout.navigationLabels.home, 'hero'),
-          if (widget.config.layout.showAboutSection) _buildDrawerItem(widget.config.layout.navigationLabels.about, 'about'),
-          if (widget.config.layout.showExperienceSection) _buildDrawerItem(widget.config.layout.navigationLabels.experience, 'experience'),
-          if (widget.config.layout.showSkillsSection) _buildDrawerItem(widget.config.layout.navigationLabels.skills, 'skills'),
-          if (widget.config.layout.showProjectsSection) _buildDrawerItem(widget.config.layout.navigationLabels.projects, 'projects'),
-          if (widget.config.layout.showVolunteeringSection) _buildDrawerItem(widget.config.layout.navigationLabels.volunteering, 'volunteering'),
-          if (widget.config.layout.showBlogSection) _buildDrawerItem(widget.config.layout.navigationLabels.blog, 'blog'),
-          if (widget.config.layout.showContactSection) _buildDrawerItem(widget.config.layout.navigationLabels.contact, 'contact'),
+          for (final sectionId in _sectionOrder)
+            if (_isSectionEnabled(sectionId)) _buildDrawerItem(_getSectionLabel(sectionId), sectionId),
           const Divider(),
           FutureBuilder<String>(
             future: LocalizationService.currentLocale,

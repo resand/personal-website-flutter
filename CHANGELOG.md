@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - Volunteering section now follows Experience in `section_order`.
+- Mobile drawer now follows `section_order` (adds Education and Certifications).
 - Removed the Remittance Platform and Open Banking SDK projects (professional work, not personal).
 - Migrated to Flutter 3.47 / Dart 3.13: `package:flutter/material.dart` replaced by `material_ui`, plus `cupertino_ui`.
 - Upgraded `google_fonts` to ^9.0.0 (requires `material_ui`).
