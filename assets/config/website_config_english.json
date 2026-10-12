@@ -323,6 +323,17 @@
   ],
   "projects": [
     {
+      "name": "TabLine — A quiet new tab",
+      "description": "Chrome extension that replaces the new tab with a quiet launcher: clock, Google search, reorderable squircle shortcuts and customizable HD wallpapers. Dependency-free vanilla JS, Manifest V3, localized in Spanish and English.",
+      "technologies": ["JavaScript", "Chrome Extension", "Manifest V3", "HTML", "CSS"],
+      "url": null,
+      "store_links": {
+        "chrome": "https://chromewebstore.google.com/detail/tabline/ffkddkeobldfapagjcmaijbhhbkblnpd"
+      },
+      "image_url": "images/projects/tabline.png",
+      "featured": true
+    },
+    {
       "name": "GDG Community App",
       "description": "Flutter mobile application for GDG event management with RSVP registration, QR check-in, real-time statistics dashboard, and PDF ticket downloads. Full integration with gdg.community.dev and organizer authentication.",
       "technologies": [
