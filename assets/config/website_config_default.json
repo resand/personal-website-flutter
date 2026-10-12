@@ -440,13 +440,13 @@
       "on_error": "#FFFFFF"
     },
     "dark_colors": {
-      "primary": "#4B5563",
-      "secondary": "#6B7280",
+      "primary": "#D1D5DB",
+      "secondary": "#9CA3AF",
       "accent": "#10B981",
       "background": "#000000",
       "surface": "#111111",
-      "on_primary": "#FFFFFF",
-      "on_secondary": "#FFFFFF",
+      "on_primary": "#111827",
+      "on_secondary": "#111827",
       "on_background": "#F3F4F6",
       "on_surface": "#F9FAFB",
       "error": "#EF4444",
@@ -475,13 +475,13 @@
     },
     "section_order": [
       "hero",
+      "about",
       "projects",
       "skills",
       "experience",
       "volunteering",
       "education",
       "certifications",
-      "about",
       "blog",
       "contact"
     ],
@@ -513,7 +513,8 @@
     },
     "hero_texts": {
       "greeting": "Hola, soy",
-      "contact_button": "Contactar"
+      "contact_button": "Contactar",
+      "projects_button": "Ver proyectos"
     },
     "ui_texts": {
       "language_tooltip": "Cambiar idioma",

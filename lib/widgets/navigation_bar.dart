@@ -436,7 +436,6 @@ class _NavItemStatefulState extends State<_NavItemStateful> {
       onExit: (_) => setState(() => isHovered = false),
       child: AnimatedContainer(
         duration: Duration(milliseconds: navConfig.hoverAnimationDuration),
-        constraints: const BoxConstraints(minWidth: 60),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
           color: widget.isActive 
@@ -455,6 +454,7 @@ class _NavItemStatefulState extends State<_NavItemStateful> {
           onPressed: () => widget.onTap(widget.section),
           style: TextButton.styleFrom(
             padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+            minimumSize: Size.zero,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8),
             ),

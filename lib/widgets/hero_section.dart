@@ -6,8 +6,9 @@ import '../utils/url_helper.dart';
 
 class HeroSection extends StatelessWidget {
   final MyWebsiteConfig config;
+  final VoidCallback? onViewProjects;
 
-  const HeroSection({super.key, required this.config});
+  const HeroSection({super.key, required this.config, this.onViewProjects});
 
   @override
   Widget build(BuildContext context) {
@@ -100,16 +101,28 @@ class HeroSection extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 32),
-        MouseRegion(
-          cursor: SystemMouseCursors.click,
-          child: ElevatedButton.icon(
-            onPressed: () => UrlHelper.open('mailto:${config.personalInfo.email}', context: context),
-            icon: const FaIcon(FontAwesomeIcons.google, size: 18),
-            label: Text(config.layout.heroTexts.contactButton),
-            style: ElevatedButton.styleFrom(
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+        Wrap(
+          spacing: 12,
+          runSpacing: 12,
+          children: [
+            ElevatedButton.icon(
+              onPressed: () => UrlHelper.open('mailto:${config.personalInfo.email}', context: context),
+              icon: const FaIcon(FontAwesomeIcons.envelope, size: 18),
+              label: Text(config.layout.heroTexts.contactButton),
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+              ),
             ),
-          ),
+            if (onViewProjects != null)
+              OutlinedButton.icon(
+                onPressed: onViewProjects,
+                icon: const Icon(Icons.arrow_downward, size: 18),
+                label: Text(config.layout.heroTexts.projectsButton),
+                style: OutlinedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                ),
+              ),
+          ],
         ),
         const SizedBox(height: 32),
         _buildSocialLinks(context),

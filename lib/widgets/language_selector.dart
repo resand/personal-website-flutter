@@ -131,7 +131,7 @@ class _LanguageSelectorState extends State<LanguageSelector>
                   child: FutureBuilder<String>(
                     future: _getCodeForLocale(locale),
                     builder: (context, snapshot) {
-                      final code = snapshot.data ?? locale.toUpperCase();
+                      final code = snapshot.data ?? LocalizationService.fallbackCode(locale);
                       return Text(
                         code,
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -315,7 +315,7 @@ class _LanguageSelectorState extends State<LanguageSelector>
                             child: FutureBuilder<String>(
                               future: LocalizationService.getLanguageCode(locale),
                               builder: (context, snapshot) {
-                                final code = snapshot.data ?? locale.toUpperCase();
+                                final code = snapshot.data ?? LocalizationService.fallbackCode(locale);
                                 return AnimatedDefaultTextStyle(
                                   duration: const Duration(milliseconds: 200),
                                   style: TextStyle(
@@ -404,7 +404,7 @@ class _LanguageSelectorButtonState extends State<_LanguageSelectorButton> {
                     child: FutureBuilder<String>(
                       future: widget.getCurrentCode(),
                       builder: (context, snapshot) {
-                        final code = snapshot.data ?? 'EN';
+                        final code = snapshot.data ?? LocalizationService.fallbackCode(widget.currentLocale ?? 'default');
                         return AnimatedSwitcher(
                           duration: const Duration(milliseconds: 300),
                           transitionBuilder: (Widget child, Animation<double> animation) {
