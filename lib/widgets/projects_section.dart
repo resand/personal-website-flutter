@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../models/website_config.dart';
 import '../utils/responsive_utils.dart';
@@ -216,7 +216,8 @@ class ProjectsSection extends StatelessWidget {
   Widget _buildProjectButtons(BuildContext context, Project project) {
     final hasStoreLinks = project.storeLinks != null &&
         (project.storeLinks!.android?.isNotEmpty == true ||
-            project.storeLinks!.ios?.isNotEmpty == true);
+            project.storeLinks!.ios?.isNotEmpty == true ||
+            project.storeLinks!.chrome?.isNotEmpty == true);
     final hasUrl = project.url?.isNotEmpty == true;
 
     // Si tiene store links, mostrar botones de tiendas
@@ -244,6 +245,19 @@ class ProjectsSection extends StatelessWidget {
               icon: const FaIcon(FontAwesomeIcons.appStore, size: 16),
               label: const Text(
                 'iOS',
+                style: TextStyle(fontSize: 14),
+              ),
+              style: OutlinedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                minimumSize: const Size(0, 40),
+              ),
+            ),
+          if (project.storeLinks!.chrome?.isNotEmpty == true)
+            OutlinedButton.icon(
+              onPressed: () => UrlHelper.open(project.storeLinks!.chrome!),
+              icon: const FaIcon(FontAwesomeIcons.chrome, size: 16),
+              label: const Text(
+                'Chrome',
                 style: TextStyle(fontSize: 14),
               ),
               style: OutlinedButton.styleFrom(

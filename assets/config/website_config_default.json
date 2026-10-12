@@ -323,6 +323,17 @@
   ],
   "projects": [
     {
+      "name": "TabLine — Nueva pestaña silenciosa",
+      "description": "Extensión de Chrome que reemplaza la nueva pestaña por un launcher silencioso: reloj, búsqueda en Google, atajos squircle reordenables y fondos HD personalizables. Vanilla JS sin dependencias, Manifest V3 y localizada en español e inglés.",
+      "technologies": ["JavaScript", "Chrome Extension", "Manifest V3", "HTML", "CSS"],
+      "url": null,
+      "store_links": {
+        "chrome": "https://chromewebstore.google.com/detail/tabline/ffkddkeobldfapagjcmaijbhhbkblnpd"
+      },
+      "image_url": "images/projects/tabline.png",
+      "featured": true
+    },
+    {
       "name": "GDG Community App",
       "description": "Aplicación móvil Flutter para gestión de eventos GDG con registro RSVP, check-in con QR, dashboard de estadísticas en tiempo real, y descarga de tickets PDF. Integración completa con gdg.community.dev y autenticación para organizadores.",
       "technologies": [
