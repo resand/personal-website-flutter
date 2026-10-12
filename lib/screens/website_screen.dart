@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import '../models/website_config.dart';
 import '../utils/responsive_utils.dart';
 import '../utils/theme_types.dart';
