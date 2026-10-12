@@ -341,36 +341,6 @@
       "featured": true
     },
     {
-      "name": "Sitio web DevFest Campeche",
-      "description": "Sitio web oficial del DevFest Campeche desarrollado en Flutter Web. Incluye información del evento, agenda, speakers, sponsors, y sistema de registro. Diseño responsivo con animaciones fluidas y optimizado para SEO.",
-      "technologies": [
-        "Flutter",
-        "Web",
-        "Firebase",
-        "Dart"
-      ],
-      "url": "https://devfestcampeche.com",
-      "store_links": null,
-      "image_url": "images/projects/devfest.png",
-      "featured": true
-    },
-    {
-      "name": "Plataforma de Remesas",
-      "description": "Aplicación móvil para envío de remesas y pagos de servicios desde USA hacia LATAM, con arquitectura VIPER y seguridad avanzada.",
-      "technologies": ["Swift", "UIKit", "VIPER", "JWE"],
-      "url": null,
-      "image_url": null,
-      "featured": true
-    },
-    {
-      "name": "SDK Open Banking",
-      "description": "Desarrollo de SDKs para Open Banking y PFM con integración multiplataforma y enfoque en experiencia de usuario.",
-      "technologies": ["Swift", "Android", "Open Banking", "SDK Development"],
-      "url": null,
-      "image_url": null,
-      "featured": true
-    },
-    {
       "name": "Facturación Cafetería Sirena",
       "description": "Aplicación web para facturar tickets de Starbucks México usando OCR automático, validación en tiempo real y generación de facturas CFDI válidas para el SAT. Incluye modo invitado con almacenamiento local y autenticación con Firebase.",
       "technologies": [
@@ -382,6 +352,31 @@
       ],
       "url": "https://tickets-sirena.renes.dev",
       "image_url": "https://tickets-sirena.renes.dev/images/social-image.png",
+      "featured": true
+    },
+    {
+      "name": "TabLine — Nueva pestaña silenciosa",
+      "description": "Extensión de Chrome que reemplaza la nueva pestaña por un launcher silencioso: reloj, búsqueda en Google, atajos squircle reordenables y fondos HD personalizables. Vanilla JS sin dependencias, Manifest V3 y localizada en español e inglés.",
+      "technologies": ["JavaScript", "Chrome Extension", "Manifest V3", "HTML", "CSS"],
+      "url": null,
+      "store_links": {
+        "chrome": "https://chromewebstore.google.com/detail/tabline/ffkddkeobldfapagjcmaijbhhbkblnpd"
+      },
+      "image_url": "images/projects/tabline.png",
+      "featured": true
+    },
+    {
+      "name": "Sitio web DevFest Campeche",
+      "description": "Sitio web oficial del DevFest Campeche desarrollado en Flutter Web. Incluye información del evento, agenda, speakers, sponsors, y sistema de registro. Diseño responsivo con animaciones fluidas y optimizado para SEO.",
+      "technologies": [
+        "Flutter",
+        "Web",
+        "Firebase",
+        "Dart"
+      ],
+      "url": "https://devfestcampeche.com",
+      "store_links": null,
+      "image_url": "images/projects/devfest.png",
       "featured": true
     }
   ],
@@ -483,11 +478,11 @@
       "projects",
       "skills",
       "experience",
+      "volunteering",
       "education",
       "certifications",
       "about",
       "blog",
-      "volunteering",
       "contact"
     ],
     "navigation_labels": {

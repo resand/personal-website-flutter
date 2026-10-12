@@ -43,12 +43,12 @@ A modern, fully configurable and multilingual personal website built with Flutte
 
 ### Main Stack  
 - **Flutter Web** (3.35.3+) - Cross-platform framework
-- **Dart SDK** (3.9.2+) - Programming language
+- **Dart SDK** (3.13+) - Programming language
 
 ### Core Dependencies
 - **http** (^1.1.0) - HTTP client for APIs and RSS
 - **url_launcher** (^6.1.12) - Open external URLs
-- **google_fonts** (^6.1.0) - Google typography fonts
+- **google_fonts** (^9.0.0) - Google typography fonts
 - **font_awesome_flutter** (^10.6.0) - Font Awesome icons
 - **lottie** (^3.1.2) - Lottie animations for loaders
 - **shared_preferences** (^2.3.2) - Local persistence of configurations
@@ -62,8 +62,8 @@ A modern, fully configurable and multilingual personal website built with Flutte
 
 ### Prerequisites
 
-- **Flutter SDK** (3.35.3 or higher)
-- **Dart SDK** (3.9.2 or higher) 
+- **Flutter SDK** (3.47 or higher)
+- **Dart SDK** (3.13 or higher) 
 - **Firebase CLI** (optional, for deployment)
 - **Chrome/Edge** (for web development)
 - **Node.js** (for Firebase CLI)

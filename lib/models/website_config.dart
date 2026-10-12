@@ -421,16 +421,19 @@ class Project {
 class StoreLinks {
   final String? android;
   final String? ios;
+  final String? chrome;
 
   StoreLinks({
     this.android,
     this.ios,
+    this.chrome,
   });
 
   factory StoreLinks.fromJson(Map<String, dynamic> json) {
     return StoreLinks(
       android: json['android'],
       ios: json['ios'],
+      chrome: json['chrome'],
     );
   }
 }

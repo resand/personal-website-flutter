@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Privacy policy for TabLine, a Chrome new-tab extension. TabLine does not collect, transmit or sell any user data.">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#10B981">
+  <title>Privacy Policy · TabLine</title>
+
+  <link rel="icon" type="image/png" href="/icons/favicon-96x96.png" sizes="96x96">
+  <link rel="icon" type="image/svg+xml" href="/icons/favicon.svg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      /* Same tokens used by the main site's website_config_default.json
+         (light_colors / dark_colors). Kept in sync by hand. */
+      --bg: #F9FAFB;
+      --surface: #FFFFFF;
+      --text: #111827;
+      --text-muted: #4B5563;
+      --text-faint: #6B7280;
+      --primary: #374151;
+      --accent: #10B981;
+      --border: #E5E7EB;
+      --code-bg: #F3F4F6;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #000000;
+        --surface: #111111;
+        --text: #F3F4F6;
+        --text-muted: #9CA3AF;
+        --text-faint: #6B7280;
+        --primary: #4B5563;
+        --accent: #10B981;
+        --border: #1F2937;
+        --code-bg: #1F2937;
+      }
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    main {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: clamp(2rem, 5vw, 4rem) clamp(1.25rem, 4vw, 2rem) 4rem;
+    }
+
+    /* ── Header ── */
+    .doc-header {
+      padding-bottom: 1.5rem;
+      margin-bottom: 2.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* TabLine brand icon — same squircle + 3×3 grid used in the extension.
+       Hairline ring guarantees visibility against the dark mode background,
+       which is the same #000 as the icon's deepest tone. */
+    .brand-icon {
+      display: block;
+      width: 56px;
+      height: 56px;
+      margin-bottom: 1.25rem;
+      border-radius: 12px;
+      box-shadow: 0 0 0 1px var(--border);
+    }
+
+    .doc-eyebrow {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+
+    h1 {
+      font-size: clamp(1.75rem, 4vw, 2.25rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+
+    .doc-meta {
+      font-size: 0.875rem;
+      color: var(--text-faint);
+    }
+
+    /* ── Section headings ── */
+    h2 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-top: 2.5rem;
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.01em;
+    }
+
+    h2:first-of-type { margin-top: 0; }
+
+    p {
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      font-size: 0.975rem;
+    }
+
+    p strong { color: var(--text); font-weight: 600; }
+
+    ul, ol {
+      color: var(--text-muted);
+      margin: 0.5rem 0 1.25rem 1.5rem;
+      font-size: 0.975rem;
+    }
+
+    li { margin-bottom: 0.5rem; }
+    li strong { color: var(--text); font-weight: 600; }
+
+    code {
+      font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+      font-size: 0.875em;
+      background: var(--code-bg);
+      color: var(--text);
+      padding: 0.15em 0.4em;
+      border-radius: 4px;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 160ms ease;
+    }
+
+    a:hover { border-bottom-color: var(--accent); }
+
+    /* ── Footer ── */
+    .doc-footer {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.875rem;
+      color: var(--text-faint);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      justify-content: space-between;
+    }
+
+    .doc-footer a { color: var(--text-faint); }
+    .doc-footer a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+    /* Reduce motion respect */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header class="doc-header">
+      <svg class="brand-icon" viewBox="0 0 128 128" aria-hidden="true" focusable="false">
+        <rect width="128" height="128" rx="28" fill="#1a1620"/>
+        <g fill="#c4b5fd">
+          <rect x="24" y="24" width="20" height="20" rx="5"/>
+          <rect x="54" y="24" width="20" height="20" rx="5"/>
+          <rect x="84" y="24" width="20" height="20" rx="5"/>
+          <rect x="24" y="54" width="20" height="20" rx="5"/>
+          <rect x="54" y="54" width="20" height="20" rx="5"/>
+          <rect x="84" y="54" width="20" height="20" rx="5"/>
+          <rect x="24" y="84" width="20" height="20" rx="5"/>
+          <rect x="54" y="84" width="20" height="20" rx="5"/>
+          <rect x="84" y="84" width="20" height="20" rx="5"/>
+        </g>
+      </svg>
+      <span class="doc-eyebrow">TabLine</span>
+      <h1>Privacy Policy</h1>
+      <p class="doc-meta">Last updated: May 24, 2026</p>
+    </header>
+
+    <article>
+      <p>TabLine ("the extension") is a Chrome new-tab replacement developed by René Sandoval. This document explains how the extension handles user data.</p>
+
+      <h2>Data we collect</h2>
+      <p><strong>None.</strong> The extension does not collect, transmit, sell or share any data on any remote server. No analytics, no telemetry, no tracking pixels.</p>
+
+      <h2>Local storage</h2>
+      <p>All your settings and content are stored exclusively in your own browser, using Chrome's local storage APIs:</p>
+      <ul>
+        <li><strong><code>chrome.storage.local</code></strong> — language preference, clock format, background choice, night-dim schedule, icon roundness, the list of shortcut tiles you create, and other UI preferences.</li>
+        <li><strong>IndexedDB</strong> (<code>dashtab-bg</code> database) — background videos you upload from your own device.</li>
+      </ul>
+      <p>This data never leaves your browser. Uninstalling the extension removes it. There is no cloud sync.</p>
+
+      <h2>Network requests</h2>
+      <p>The extension makes outbound network requests only in three narrow cases:</p>
+      <ol>
+        <li><strong>Favicons for shortcuts.</strong> When you add a shortcut, TabLine fetches the favicon of that shortcut's own domain (typically <code>&lt;domain&gt;/apple-touch-icon.png</code>). If that fails, it falls back to Google's public <code>s2/favicons</code> endpoint. The favicon is downloaded once and cached locally as a data URL — subsequent loads are offline.</li>
+        <li><strong>External wallpaper URL or external video URL</strong> — only if you, the user, explicitly paste one as a background source.</li>
+        <li><strong>Curated wallpaper and video assets</strong> bundled with the extension itself.</li>
+      </ol>
+      <p>No request carries any identifying information about you beyond what the browser normally sends to those endpoints (User-Agent, IP).</p>
+
+      <h2>Permissions used and why</h2>
+      <ul>
+        <li><strong><code>storage</code></strong> and <strong><code>unlimitedStorage</code></strong> — to persist your settings and your uploaded background videos locally. <code>unlimitedStorage</code> is required because user videos easily exceed the default 10 MB quota.</li>
+        <li><strong><code>tabs</code></strong> — used exclusively by two right-click context-menu actions on your saved shortcuts: <em>Open in new tab</em> (<code>chrome.tabs.create</code>) so the shortcut can also open <code>chrome://</code> system pages, and <em>Open in incognito</em> (<code>chrome.windows.create</code>). The extension does not read tab content, history or any browsing data.</li>
+        <li><strong><code>host_permissions: &lt;all_urls&gt;</code></strong> — solely to fetch favicons for the shortcut domains you add. The extension does not run any content script, does not read or modify the content of any web page, and does not communicate with any third-party server beyond the cases listed above.</li>
+      </ul>
+
+      <h2>Third parties</h2>
+      <p>The extension does not integrate with any third-party analytics, advertising, A/B testing or telemetry service.</p>
+
+      <h2>Children</h2>
+      <p>The extension does not knowingly collect any information from anyone, including children under 13.</p>
+
+      <h2>Changes to this policy</h2>
+      <p>If this policy changes, the new version will be published at the same URL and dated above.</p>
+
+      <h2>Contact</h2>
+      <p>Questions or concerns:</p>
+      <ul>
+        <li>René Sandoval — <a href="https://renes.dev">renes.dev</a></li>
+        <li>Email — <a href="mailto:resand91@gmail.com">resand91@gmail.com</a></li>
+      </ul>
+    </article>
+
+    <footer class="doc-footer">
+      <span>© 2026 René Sandoval</span>
+      <a href="https://renes.dev">← Back to renes.dev</a>
+    </footer>
+  </main>
+</body>
+</html>
