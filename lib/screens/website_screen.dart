@@ -44,6 +44,7 @@ class MyWebsiteScreen extends StatefulWidget {
 
 class _MyWebsiteScreenState extends State<MyWebsiteScreen> with TickerProviderStateMixin {
   String? currentSection = 'hero';
+  final Set<String> _revealedSections = {'hero'};
 
   Timer? _scrollDebounce;
 
@@ -66,6 +67,7 @@ class _MyWebsiteScreenState extends State<MyWebsiteScreen> with TickerProviderSt
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) => _updateRevealedSections());
     _scrollController.addListener(_onScroll);
   }
 
@@ -85,7 +87,24 @@ class _MyWebsiteScreenState extends State<MyWebsiteScreen> with TickerProviderSt
   // Get the configured section order, with fallback to default
   List<String> get _sectionOrder => widget.config.layout.sectionOrder;
 
+  // Mark sections as revealed once their top enters the lower part of the viewport
+  void _updateRevealedSections() {
+    if (!widget.config.layout.enableAnimations) return;
+    final revealLine = MediaQuery.sizeOf(context).height * 0.85;
+    var changed = false;
+    for (final section in _sectionOrder) {
+      if (_revealedSections.contains(section)) continue;
+      final box = _sectionKeys[section]?.currentContext?.findRenderObject() as RenderBox?;
+      if (box != null && box.localToGlobal(Offset.zero).dy < revealLine) {
+        _revealedSections.add(section);
+        changed = true;
+      }
+    }
+    if (changed) setState(() {});
+  }
+
   void _updateCurrentSection() {
+    _updateRevealedSections();
     String? newSection;
     final navbarHeight = _getNavbarHeight(context);
     final threshold = navbarHeight + 20; // navbar height + 20px margin
@@ -143,7 +162,7 @@ class _MyWebsiteScreenState extends State<MyWebsiteScreen> with TickerProviderSt
   // Helper method to build section widget
   Widget? _buildSectionWidget(String sectionId) {
     switch (sectionId) {
-      case 'hero': return HeroSection(config: widget.config);
+      case 'hero': return HeroSection(config: widget.config, onViewProjects: () => _scrollToSection('projects'));
       case 'about': return AboutSection(config: widget.config);
       case 'experience': return ExperienceSection(config: widget.config);
       case 'skills': return SkillsSection(config: widget.config);
@@ -210,6 +229,42 @@ class _MyWebsiteScreenState extends State<MyWebsiteScreen> with TickerProviderSt
     }
   }
 
+  Widget _buildRevealable(String sectionId) {
+    final visible = !widget.config.layout.enableAnimations || _revealedSections.contains(sectionId);
+    return Container(
+      key: _sectionKeys[sectionId],
+      child: AnimatedOpacity(
+        opacity: visible ? 1 : 0,
+        duration: const Duration(milliseconds: 600),
+        curve: Curves.easeOut,
+        child: AnimatedSlide(
+          offset: visible ? Offset.zero : const Offset(0, 0.04),
+          duration: const Duration(milliseconds: 600),
+          curve: Curves.easeOut,
+          child: _buildSectionWidget(sectionId)!,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildBackToTop() {
+    final show = currentSection != null && currentSection != 'hero';
+    return Positioned(
+      right: 16,
+      bottom: 16,
+      child: AnimatedScale(
+        scale: show ? 1 : 0,
+        duration: const Duration(milliseconds: 200),
+        child: FloatingActionButton.small(
+          heroTag: 'back_to_top',
+          tooltip: widget.config.layout.navigationLabels.home,
+          onPressed: () => _scrollToSection('hero'),
+          child: const Icon(Icons.keyboard_arrow_up),
+        ),
+      ),
+    );
+  }
+
   void _scrollToSection(String section) {
     if (_scaffoldKey.currentState?.isDrawerOpen == true) {
       Navigator.of(context).pop();
@@ -264,10 +319,7 @@ class _MyWebsiteScreenState extends State<MyWebsiteScreen> with TickerProviderSt
                 // Build sections in configured order
                 for (String sectionId in _sectionOrder)
                   if (_isSectionEnabled(sectionId))
-                    Container(
-                      key: _sectionKeys[sectionId],
-                      child: _buildSectionWidget(sectionId)!,
-                    ),
+                    _buildRevealable(sectionId),
                 MyWebsiteFooter(
                   config: widget.config,
                   onSectionTap: _scrollToSection,
@@ -275,6 +327,7 @@ class _MyWebsiteScreenState extends State<MyWebsiteScreen> with TickerProviderSt
               ],
             ),
           ),
+          _buildBackToTop(),
           Positioned(
             top: 0,
             left: 0,
@@ -311,285 +364,65 @@ class _MyWebsiteScreenState extends State<MyWebsiteScreen> with TickerProviderSt
   }
 
   Widget _buildBottomNavigationBar() {
-    // Get all enabled sections in configured order
-    final allEnabledSections = _sectionOrder
-        .where((sectionId) => _isSectionEnabled(sectionId))
-        .toList();
-    
-    // Decide which sections go in main tabs vs "More" menu
-    // Main tabs: first 4 sections (fits well on most screens)
-    final mainTabSections = allEnabledSections.take(4).toList();
-    final moreSections = allEnabledSections.skip(4).toList();
-    
-    final allTabs = <Widget>[];
-    
-    // Add main tabs in configured order
-    for (String sectionId in mainTabSections) {
-      final isActive = currentSection == sectionId;
-      allTabs.add(
-        Expanded(
-          child: _buildTabItem(
-            icon: _getSectionIcon(sectionId),
-            label: _getSectionLabel(sectionId),
-            isActive: isActive,
-            onTap: () => _scrollToSection(sectionId),
-          ),
-        ),
-      );
+    final sections = _sectionOrder.where(_isSectionEnabled).toList();
+    // First 4 sections get a tab; the rest go to the "More" bottom sheet
+    final mainSections = sections.take(4).toList();
+    final moreSections = sections.skip(4).toList();
+    final hasMore = moreSections.isNotEmpty;
+
+    var selectedIndex = mainSections.indexWhere((id) => id == currentSection);
+    if (selectedIndex < 0) {
+      selectedIndex = hasMore && moreSections.contains(currentSection) ? mainSections.length : 0;
     }
-    
-    // Add "More" button if there are secondary sections
-    if (moreSections.isNotEmpty) {
-      final hasActiveMoreSection = moreSections.contains(currentSection);
-      allTabs.add(
-        Expanded(
-          child: _buildMoreTabItem(
-            moreSections: moreSections,
-            isActive: hasActiveMoreSection,
+
+    return NavigationBar(
+      height: 64,
+      selectedIndex: selectedIndex,
+      labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
+      onDestinationSelected: (index) {
+        if (index < mainSections.length) {
+          _scrollToSection(mainSections[index]);
+        } else {
+          _showMoreSheet(moreSections);
+        }
+      },
+      destinations: [
+        for (final id in mainSections)
+          NavigationDestination(
+            icon: Icon(_getSectionIcon(id)),
+            label: _getSectionLabel(id),
           ),
-        ),
-      );
-    }
-    
-    return Container(
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface,
-        boxShadow: [
-          BoxShadow(
-            color: Theme.of(context).shadowColor.withValues(alpha: 0.1),
-            blurRadius: 8,
-            offset: const Offset(0, -2),
+        if (hasMore)
+          NavigationDestination(
+            icon: const Icon(Icons.more_horiz),
+            label: widget.config.layout.uiTexts.moreMenu,
           ),
-        ],
-      ),
-      child: SafeArea(
-        child: Container(
-          height: 60,
-          padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: allTabs,
-          ),
-        ),
-      ),
-    );
-  }
-  
-  Widget _buildTabItem({
-    required IconData icon,
-    required String label,
-    required bool isActive,
-    required VoidCallback onTap,
-  }) {
-    return GestureDetector(
-      onTap: onTap,
-      behavior: HitTestBehavior.opaque,
-      child: Container(
-        padding: EdgeInsets.symmetric(vertical: isActive ? 1 : 2),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            // Animated top indicator
-            AnimatedContainer(
-              duration: const Duration(milliseconds: 250),
-              curve: Curves.easeInOut,
-              height: 3,
-              width: isActive ? 24 : 0,
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.primary,
-                borderRadius: BorderRadius.circular(2),
-                boxShadow: isActive ? [
-                  BoxShadow(
-                    color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.4),
-                    blurRadius: 4,
-                    offset: const Offset(0, 1),
-                  ),
-                ] : null,
-              ),
-            ),
-            const SizedBox(height: 4),
-            AnimatedScale(
-              scale: isActive ? 1.1 : 1.0,
-              duration: const Duration(milliseconds: 200),
-              curve: Curves.easeOutBack,
-              child: AnimatedContainer(
-                duration: const Duration(milliseconds: 150),
-                padding: EdgeInsets.all(isActive ? 2 : 0),
-                decoration: BoxDecoration(
-                  color: isActive 
-                    ? Theme.of(context).colorScheme.primary.withValues(alpha: 0.15)
-                    : Colors.transparent,
-                  shape: BoxShape.circle,
-                ),
-                child: Icon(
-                  icon,
-                  size: 20,
-                  color: isActive 
-                    ? Theme.of(context).colorScheme.primary
-                    : Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
-                ),
-              ),
-            ),
-            const SizedBox(height: 2),
-            AnimatedDefaultTextStyle(
-              duration: const Duration(milliseconds: 200),
-              curve: Curves.easeInOut,
-              style: TextStyle(
-                fontSize: isActive ? 11 : 10,
-                fontWeight: isActive ? FontWeight.w600 : FontWeight.w400,
-                color: isActive 
-                  ? Theme.of(context).colorScheme.primary
-                  : Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
-              ),
-              child: Text(
-                label,
-                textAlign: TextAlign.center,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
-          ],
-        ),
-      ),
+      ],
     );
   }
 
-  Widget _buildMoreTabItem({
-    required List<String> moreSections,
-    required bool isActive,
-  }) {
-    return PopupMenuButton<String>(
-      tooltip: widget.config.layout.uiTexts.moreMenu,
-      onSelected: (String section) => _scrollToSection(section),
-      itemBuilder: (BuildContext context) => moreSections.map((sectionId) {
-        final itemIsActive = currentSection == sectionId;
-        return PopupMenuItem<String>(
-          value: sectionId,
-          child: Container(
-            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-              color: itemIsActive
-                  ? Theme.of(context).colorScheme.primary.withValues(alpha: 0.1)
-                  : null,
-            ),
-            child: Row(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(6),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(6),
-                    color: itemIsActive
-                        ? Theme.of(context).colorScheme.primary.withValues(alpha: 0.15)
-                        : Colors.transparent,
-                  ),
-                  child: Icon(
-                    _getSectionIcon(sectionId),
-                    color: itemIsActive
-                        ? Theme.of(context).colorScheme.primary
-                        : Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
-                    size: 20,
-                  ),
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Text(
-                    _getSectionLabel(sectionId),
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      fontWeight: itemIsActive ? FontWeight.w600 : FontWeight.w500,
-                      color: itemIsActive
-                          ? Theme.of(context).colorScheme.primary
-                          : null,
-                    ),
-                  ),
-                ),
-                if (itemIsActive) ...[
-                  const SizedBox(width: 8),
-                  Icon(
-                    Icons.check_circle,
-                    color: Theme.of(context).colorScheme.primary,
-                    size: 16,
-                  ),
-                ],
-              ],
-            ),
-          ),
-        );
-      }).toList(),
-      offset: const Offset(0, -220),
-      elevation: 8,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
-      color: Theme.of(context).colorScheme.surface,
-      child: Container(
-        padding: EdgeInsets.symmetric(vertical: isActive ? 1 : 2),
+  void _showMoreSheet(List<String> sections) {
+    showModalBottomSheet<String>(
+      context: context,
+      showDragHandle: true,
+      builder: (sheetContext) => SafeArea(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            // Animated top indicator
-            AnimatedContainer(
-              duration: const Duration(milliseconds: 250),
-              curve: Curves.easeInOut,
-              height: 3,
-              width: isActive ? 24 : 0,
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.primary,
-                borderRadius: BorderRadius.circular(2),
-                boxShadow: isActive ? [
-                  BoxShadow(
-                    color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.4),
-                    blurRadius: 4,
-                    offset: const Offset(0, 1),
-                  ),
-                ] : null,
+            for (final id in sections)
+              ListTile(
+                leading: Icon(_getSectionIcon(id)),
+                title: Text(_getSectionLabel(id)),
+                selected: currentSection == id,
+                trailing: currentSection == id ? const Icon(Icons.check_circle, size: 18) : null,
+                onTap: () => Navigator.of(sheetContext).pop(id),
               ),
-            ),
-            const SizedBox(height: 4),
-            AnimatedScale(
-              scale: isActive ? 1.1 : 1.0,
-              duration: const Duration(milliseconds: 200),
-              curve: Curves.easeOutBack,
-              child: AnimatedContainer(
-                duration: const Duration(milliseconds: 150),
-                padding: EdgeInsets.all(isActive ? 2 : 0),
-                decoration: BoxDecoration(
-                  color: isActive 
-                    ? Theme.of(context).colorScheme.primary.withValues(alpha: 0.15)
-                    : Colors.transparent,
-                  shape: BoxShape.circle,
-                ),
-                child: Icon(
-                  Icons.more_horiz,
-                  size: 20,
-                  color: isActive 
-                    ? Theme.of(context).colorScheme.primary
-                    : Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
-                ),
-              ),
-            ),
-            const SizedBox(height: 2),
-            AnimatedDefaultTextStyle(
-              duration: const Duration(milliseconds: 200),
-              curve: Curves.easeInOut,
-              style: TextStyle(
-                fontSize: isActive ? 11 : 10,
-                fontWeight: isActive ? FontWeight.w600 : FontWeight.w400,
-                color: isActive 
-                  ? Theme.of(context).colorScheme.primary
-                  : Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
-              ),
-              child: Text(
-                widget.config.layout.uiTexts.moreMenu,
-                textAlign: TextAlign.center,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
           ],
         ),
       ),
-    );
+    ).then((id) {
+      if (id != null) _scrollToSection(id);
+    });
   }
 
   Widget _buildDrawer() {
