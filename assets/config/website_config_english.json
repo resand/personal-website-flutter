@@ -323,17 +323,6 @@
   ],
   "projects": [
     {
-      "name": "TabLine — A quiet new tab",
-      "description": "Chrome extension that replaces the new tab with a quiet launcher: clock, Google search, reorderable squircle shortcuts and customizable HD wallpapers. Dependency-free vanilla JS, Manifest V3, localized in Spanish and English.",
-      "technologies": ["JavaScript", "Chrome Extension", "Manifest V3", "HTML", "CSS"],
-      "url": null,
-      "store_links": {
-        "chrome": "https://chromewebstore.google.com/detail/tabline/ffkddkeobldfapagjcmaijbhhbkblnpd"
-      },
-      "image_url": "images/projects/tabline.png",
-      "featured": true
-    },
-    {
       "name": "GDG Community App",
       "description": "Flutter mobile application for GDG event management with RSVP registration, QR check-in, real-time statistics dashboard, and PDF ticket downloads. Full integration with gdg.community.dev and organizer authentication.",
       "technologies": [
@@ -352,36 +341,6 @@
       "featured": true
     },
     {
-      "name": "DevFest Campeche Website",
-      "description": "Official DevFest Campeche website built with Flutter Web. Features event information, schedule, speakers, sponsors, and registration system. Responsive design with smooth animations and SEO optimized.",
-      "technologies": [
-        "Flutter",
-        "Web",
-        "Firebase",
-        "Dart"
-      ],
-      "url": "https://devfestcampeche.com",
-      "store_links": null,
-      "image_url": "images/projects/devfest.png",
-      "featured": true
-    },
-    {
-      "name": "Scalable Remittance Platform",
-      "description": "Mobile application for sending remittances and service payments from USA to LATAM, with VIPER architecture and advanced security.",
-      "technologies": ["Swift", "UIKit", "VIPER", "JWE"],
-      "url": null,
-      "image_url": null,
-      "featured": true
-    },
-    {
-      "name": "Open Banking SDK",
-      "description": "SDK development for Open Banking & PFM with cross-platform integration and focus on user experience.",
-      "technologies": ["Swift", "Android", "Open Banking", "SDK Development"],
-      "url": null,
-      "image_url": null,
-      "featured": true
-    },
-    {
       "name": "Cafetería Sirena Invoicing",
       "description": "Web application for invoicing Starbucks Mexico receipts using automatic OCR, real-time validation and generation of valid CFDI invoices for SAT. Includes guest mode with local storage and Firebase authentication.",
       "technologies": [
@@ -393,6 +352,31 @@
       ],
       "url": "https://tickets-sirena.renes.dev",
       "image_url": "https://tickets-sirena.renes.dev/images/social-image.png",
+      "featured": true
+    },
+    {
+      "name": "TabLine — A quiet new tab",
+      "description": "Chrome extension that replaces the new tab with a quiet launcher: clock, Google search, reorderable squircle shortcuts and customizable HD wallpapers. Dependency-free vanilla JS, Manifest V3, localized in Spanish and English.",
+      "technologies": ["JavaScript", "Chrome Extension", "Manifest V3", "HTML", "CSS"],
+      "url": null,
+      "store_links": {
+        "chrome": "https://chromewebstore.google.com/detail/tabline/ffkddkeobldfapagjcmaijbhhbkblnpd"
+      },
+      "image_url": "images/projects/tabline.png",
+      "featured": true
+    },
+    {
+      "name": "DevFest Campeche Website",
+      "description": "Official DevFest Campeche website built with Flutter Web. Features event information, schedule, speakers, sponsors, and registration system. Responsive design with smooth animations and SEO optimized.",
+      "technologies": [
+        "Flutter",
+        "Web",
+        "Firebase",
+        "Dart"
+      ],
+      "url": "https://devfestcampeche.com",
+      "store_links": null,
+      "image_url": "images/projects/devfest.png",
       "featured": true
     }
   ],
