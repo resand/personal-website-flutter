@@ -115,20 +115,24 @@ class LocalizationService {
   }
 
   // Generic method to get language info from config
+  // Short code shown while (or if) the language info is not loaded yet
+  static String fallbackCode(String locale) => locale == 'default' ? 'ES' : 'EN';
+
+  static final Map<String, LanguageInfo> _languageInfoCache = {};
+
   static Future<LanguageInfo> _getLanguageInfo(String locale) async {
+    final cached = _languageInfoCache[locale];
+    if (cached != null) return cached;
     try {
-      final configFileName = _getConfigFileName(locale);
-      final String configPath = 'assets/config/$configFileName';
-      final String configString = await rootBundle.loadString(configPath);
-      final Map<String, dynamic> configJson = json.decode(configString);
-      final config = MyWebsiteConfig.fromJson(configJson);
-      
-      return config.languageInfo;
+      final configPath = 'assets/config/${_getConfigFileName(locale)}';
+      final configJson = json.decode(await rootBundle.loadString(configPath));
+      return _languageInfoCache[locale] = MyWebsiteConfig.fromJson(configJson).languageInfo;
     } catch (e) {
-      // Fallback language info if config loading fails
+      _logger.e('Failed to load language info for $locale', error: e);
+      final isDefault = locale == 'default';
       return LanguageInfo(
-        code: locale.toUpperCase(),
-        name: locale == 'default' ? 'Español' : 'English',
+        code: fallbackCode(locale),
+        name: isDefault ? 'Español' : 'English',
       );
     }
   }

@@ -8,10 +8,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- "Ver proyectos" / "View projects" secondary button in the hero (`hero_texts.projects_button`).
+- Fade/slide reveal animation for sections on scroll (respects `enable_animations`).
+- Back-to-top floating button once the user leaves the hero.
 
 ### Changed
+- Mobile bottom bar rebuilt with Material 3 `NavigationBar`; the "More" popup is now a bottom sheet.
+- About section moved right after the hero in `section_order`.
+- Dark theme palette lightened (primary `#D1D5DB`, secondary `#9CA3AF`, dark `on_primary`) for readable contrast on black.
+- Hero contact button uses an envelope icon instead of the Google logo.
+- `LocalizationService` caches language info instead of re-parsing the config on every build.
 
 ### Fixed
+- Language selector showing "ENGLISH"/"DEFAULT" instead of "EN"/"ES" while language info loaded.
+- Uneven spacing between desktop navigation items (removed forced minimum width).
 
 ## [1.6.0] - 2026-10-11
 

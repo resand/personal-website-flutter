@@ -680,16 +680,19 @@ class SectionTitles {
 class HeroTexts {
   final String greeting;
   final String contactButton;
+  final String projectsButton;
 
   HeroTexts({
     required this.greeting,
     required this.contactButton,
+    required this.projectsButton,
   });
 
   factory HeroTexts.fromJson(Map<String, dynamic> json) {
     return HeroTexts(
       greeting: json['greeting'] ?? 'Hola, soy',
       contactButton: json['contact_button'] ?? 'Contactar',
+      projectsButton: json['projects_button'] ?? 'Ver proyectos',
     );
   }
 }
