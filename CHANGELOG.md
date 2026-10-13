@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.7.1] - 2026-10-12
+
 ### Fixed
 - Blog cards now show the Medium cover image: `rss2json` returns an empty `thumbnail`, so the image is taken from `enclosure` or the first `<img>` in the post content.
 
