@@ -69,7 +69,7 @@ class BlogService {
       final link = item['link'] as String? ?? '';
       final pubDate = item['pubDate'] as String? ?? '';
       final author = item['author'] as String? ?? '';
-      final thumbnail = item['thumbnail'] as String?;
+      final thumbnail = _extractImageUrl(item);
       final categories = (item['categories'] as List?)?.cast<String>() ?? <String>[];
       
       if (title.isEmpty || link.isEmpty) {
@@ -81,7 +81,7 @@ class BlogService {
         description: _cleanHtml(description),
         url: link,
         publishedDate: _parseDate(pubDate),
-        imageUrl: thumbnail?.isNotEmpty == true ? thumbnail : null,
+        imageUrl: thumbnail,
         categories: categories,
         author: _cleanHtml(author),
         readTimeMinutes: _calculateReadTime(description),
@@ -90,6 +90,21 @@ class BlogService {
     } catch (e) {
       return null;
     }
+  }
+
+  static final RegExp _imgSrcRegex = RegExp('<img[^>]+src=["\']([^"\']+)["\']');
+
+  // Medium feeds leave `thumbnail` empty; the cover image lives in the HTML content
+  static String? _extractImageUrl(Map<String, dynamic> item) {
+    final thumbnail = item['thumbnail'] as String?;
+    if (thumbnail != null && thumbnail.isNotEmpty) return thumbnail;
+
+    final enclosure = item['enclosure'];
+    final enclosureLink = enclosure is Map ? enclosure['link'] as String? : null;
+    if (enclosureLink != null && enclosureLink.isNotEmpty) return enclosureLink;
+
+    final content = item['content'] as String? ?? item['description'] as String? ?? '';
+    return _imgSrcRegex.firstMatch(content)?.group(1);
   }
 
   static String _cleanHtml(String html) {
