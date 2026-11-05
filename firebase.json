@@ -12,6 +12,10 @@
         "destination": "/privacy-tabline.html"
       },
       {
+        "source": "/privacy-gdg-community",
+        "destination": "/privacy-gdg-community.html"
+      },
+      {
         "source": "!**/*.@(js|css|html|json|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot)",
         "destination": "/index.html"
       }

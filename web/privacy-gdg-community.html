@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Política de privacidad de GDG Community, app no oficial para eventos de Google Developer Groups. Privacy policy for GDG Community.">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#1A73E8">
+  <title>Política de Privacidad · GDG Community</title>
+
+  <link rel="icon" type="image/png" href="/icons/favicon-96x96.png" sizes="96x96">
+  <link rel="icon" type="image/svg+xml" href="/icons/favicon.svg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      /* Same tokens used by the main site's website_config_default.json
+         (light_colors / dark_colors). Kept in sync by hand. */
+      --bg: #F9FAFB;
+      --surface: #FFFFFF;
+      --text: #111827;
+      --text-muted: #4B5563;
+      --text-faint: #6B7280;
+      --primary: #374151;
+      --accent: #1A73E8;
+      --border: #E5E7EB;
+      --code-bg: #F3F4F6;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #000000;
+        --surface: #111111;
+        --text: #F3F4F6;
+        --text-muted: #9CA3AF;
+        --text-faint: #6B7280;
+        --primary: #4B5563;
+        --accent: #8AB4F8;
+        --border: #1F2937;
+        --code-bg: #1F2937;
+      }
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    main {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: clamp(2rem, 5vw, 4rem) clamp(1.25rem, 4vw, 2rem) 4rem;
+    }
+
+    /* ── Header ── */
+    .doc-header {
+      padding-bottom: 1.5rem;
+      margin-bottom: 2.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* TabLine brand icon — same squircle + 3×3 grid used in the extension.
+       Hairline ring guarantees visibility against the dark mode background,
+       which is the same #000 as the icon's deepest tone. */
+    .brand-icon {
+      display: block;
+      width: 56px;
+      height: 56px;
+      margin-bottom: 1.25rem;
+      border-radius: 12px;
+      box-shadow: 0 0 0 1px var(--border);
+    }
+
+    .doc-eyebrow {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+
+    h1 {
+      font-size: clamp(1.75rem, 4vw, 2.25rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+
+    .doc-meta {
+      font-size: 0.875rem;
+      color: var(--text-faint);
+    }
+
+    /* ── Section headings ── */
+    h2 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-top: 2.5rem;
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.01em;
+    }
+
+    h2:first-of-type { margin-top: 0; }
+
+    p {
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      font-size: 0.975rem;
+    }
+
+    p strong { color: var(--text); font-weight: 600; }
+
+    ul, ol {
+      color: var(--text-muted);
+      margin: 0.5rem 0 1.25rem 1.5rem;
+      font-size: 0.975rem;
+    }
+
+    li { margin-bottom: 0.5rem; }
+    li strong { color: var(--text); font-weight: 600; }
+
+    code {
+      font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+      font-size: 0.875em;
+      background: var(--code-bg);
+      color: var(--text);
+      padding: 0.15em 0.4em;
+      border-radius: 4px;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 160ms ease;
+    }
+
+    a:hover { border-bottom-color: var(--accent); }
+
+    /* ── Footer ── */
+    .doc-footer {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.875rem;
+      color: var(--text-faint);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      justify-content: space-between;
+    }
+
+    .doc-footer a { color: var(--text-faint); }
+    .doc-footer a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+    /* Reduce motion respect */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header class="doc-header">
+      <span class="doc-eyebrow">GDG Community</span>
+      <h1>Política de Privacidad</h1>
+      <p class="doc-meta">Última actualización: 4 de noviembre de 2026 · <a href="#en" lang="en">English</a></p>
+    </header>
+
+    <article>
+      <p>GDG Community («la app») es una app <strong>no oficial</strong>, hecha por la comunidad, para vivir los eventos de Google Developer Groups: boletos, check-in, trivias, rifas y avisos. La desarrolla René Sandoval con GDG San Francisco de Campeche. No está afiliada, patrocinada ni respaldada por Google. Aquí explicamos qué datos usa, por qué y cómo puedes pedir que los borremos.</p>
+
+      <h2>Tu cuenta de GDG</h2>
+      <p>Inicias sesión con tu cuenta de <a href="https://gdg.community.dev">gdg.community.dev</a>, plataforma operada por terceros. Tu perfil, tus boletos e inscripciones viven allí y se rigen por sus propias políticas. Tu sesión se guarda cifrada en tu teléfono y <strong>no se envía a nuestros servidores</strong>.</p>
+
+      <h2>Datos que guardamos</h2>
+      <p>Para trivias, rifas y notificaciones guardamos en Google Firebase:</p>
+      <ul>
+        <li><strong>Notificaciones:</strong> si te suscribes, guardamos un token de notificaciones de tu dispositivo, tu idioma y los eventos y capítulos que sigues. Con él, el equipo organizador envía notificaciones del evento y del capítulo, avisos y anuncios masivos.</li>
+        <li><strong>Nombre y correo:</strong> los tomamos de la lista de asistentes de gdg.community.dev y los usamos y guardamos para las rifas y la entrega de premios.</li>
+        <li><strong>Identificador:</strong> un valor derivado de tu correo (hash) que enlaza tus notificaciones, trivia y check-in.</li>
+        <li><strong>Trivia:</strong> nombre visible, respuestas, tiempos y puntos.</li>
+        <li><strong>Rifas:</strong> nombre de quienes ganan, referencia de su boleto y estado de entrega del premio, para que el equipo organizador pueda entregarlo.</li>
+        <li><strong>Check-in:</strong> el registro de que asististe, asociado a ese identificador.</li>
+        <li><strong>Organizadores:</strong> si pides reiniciar un PIN, guardamos tu correo y nombre para revisar la solicitud.</li>
+      </ul>
+
+      <h2>Qué ven otras personas</h2>
+      <p>Tu nombre visible y tus puntos pueden aparecer en el podio de la trivia, y tu nombre en los resultados de una rifa si ganas, a la vista de otras personas de la app. Si tu cuenta no tiene nombre, en la trivia podría mostrarse tu correo en su lugar.</p>
+
+      <h2>Datos técnicos</h2>
+      <p>Usamos Firebase Crashlytics y Google Analytics para Firebase para detectar errores y entender el uso general de la app. Pueden recoger datos del dispositivo, de uso y de fallos, además de identificadores del dispositivo o de publicidad. La app no muestra anuncios.</p>
+
+      <h2>Permisos del teléfono</h2>
+      <ul>
+        <li><strong>Notificaciones:</strong> para avisos del evento; las activas tú y puedes apagarlas cuando quieras.</li>
+        <li><strong>Cámara y fotos:</strong> para escanear códigos QR en el check-in; las imágenes no se suben.</li>
+      </ul>
+      <p>La app no guarda tu ubicación. El mapa de capítulos usa Google Maps.</p>
+
+      <h2>Para qué los usamos</h2>
+      <p>Solo para operar la app: enviarte avisos, calificar trivias, hacer rifas, mostrar resultados, proteger el servicio y corregir errores. <strong>No vendemos tus datos ni los usamos para publicidad.</strong></p>
+
+      <h2>Con quién se comparten</h2>
+      <p>Con los organizadores del evento, en lo necesario para operarlo, y con los servicios que hacen funcionar la app: Google (Firebase y Maps) y la plataforma de gdg.community.dev. Los servidores de Firebase pueden estar fuera de tu país, incluido Estados Unidos.</p>
+
+      <h2>Seguridad y conservación</h2>
+      <p>La comunicación viaja por HTTPS y el acceso a nuestros servicios se limita a la app verificada. Ningún sistema es infalible. Conservamos los datos mientras sean necesarios para operar la app o hasta que pidas borrarlos.</p>
+
+      <h2>Tus opciones y derechos</h2>
+      <ul>
+        <li>Apaga las notificaciones desde la app o desde los ajustes del teléfono.</li>
+        <li>Al cerrar sesión se borra el token de notificaciones de ese dispositivo.</li>
+        <li>Puedes pedir acceso, corrección o eliminación de tus datos, u oponerte a su uso, escribiendo a <a href="mailto:gdgcampeche@gmail.com">gdgcampeche@gmail.com</a> desde el correo de tu cuenta.</li>
+      </ul>
+      <p>Esto no borra tu cuenta de gdg.community.dev; esa se gestiona en su plataforma.</p>
+
+      <h2>Menores</h2>
+      <p>La app no está dirigida a menores de 13 años. Si crees que un menor nos dio datos, escríbenos y los borraremos.</p>
+
+      <h2>Cambios</h2>
+      <p>Si esta política cambia, publicaremos la nueva versión en esta misma dirección con su fecha.</p>
+
+      <h2>Contacto</h2>
+      <ul>
+        <li>René Sandoval — <a href="https://renes.dev">renes.dev</a></li>
+        <li>Correo — <a href="mailto:gdgcampeche@gmail.com">gdgcampeche@gmail.com</a></li>
+      </ul>
+    </article>
+
+    <article id="en" lang="en" style="margin-top:4rem;padding-top:2.5rem;border-top:1px solid var(--border)">
+      <h1>Privacy Policy</h1>
+      <p class="doc-meta">Last updated: November 4, 2026</p>
+
+      <p>GDG Community ("the app") is an <strong>unofficial</strong>, community-built app for Google Developer Groups events: tickets, check-in, trivia, raffles and notifications. It is developed by René Sandoval with GDG San Francisco de Campeche. It is not affiliated with, sponsored or endorsed by Google. This page explains what data it uses, why, and how to ask us to delete it.</p>
+
+      <h2>Your GDG account</h2>
+      <p>You sign in with your <a href="https://gdg.community.dev">gdg.community.dev</a> account, a platform operated by third parties. Your profile, tickets and registrations live there under its own policies. Your session is stored encrypted on your phone and <strong>is not sent to our servers</strong>.</p>
+
+      <h2>Data we store</h2>
+      <p>For trivia, raffles and notifications we store in Google Firebase:</p>
+      <ul>
+        <li><strong>Notifications:</strong> if you subscribe, we store a notification token for your device, your language and the events and chapters you follow. Organizers use it to send event and chapter notifications, alerts and mass announcements.</li>
+        <li><strong>Name and email:</strong> we take them from the gdg.community.dev attendee list, and use and store them for raffles and prize delivery.</li>
+        <li><strong>Identifier:</strong> a value derived from your email (a hash) that links your notifications, trivia and check-in.</li>
+        <li><strong>Trivia:</strong> display name, answers, timing and points.</li>
+        <li><strong>Raffles:</strong> winners' names, ticket reference and prize delivery status, so organizers can hand over the prize.</li>
+        <li><strong>Check-in:</strong> a record that you attended, tied to that identifier.</li>
+        <li><strong>Organizers:</strong> if you request a PIN reset, we store your email and name to review the request.</li>
+      </ul>
+
+      <h2>What other people see</h2>
+      <p>Your display name and points may appear on the trivia podium, and your name in raffle results if you win, visible to other app users. If your account has no name, your email may be shown in trivia instead.</p>
+
+      <h2>Technical data</h2>
+      <p>We use Firebase Crashlytics and Google Analytics for Firebase to find errors and understand general usage. They may collect device, usage and crash data, plus device or advertising identifiers. The app shows no ads.</p>
+
+      <h2>Phone permissions</h2>
+      <ul>
+        <li><strong>Notifications:</strong> for event alerts; you turn them on and can turn them off at any time.</li>
+        <li><strong>Camera and photos:</strong> to scan QR codes at check-in; images are not uploaded.</li>
+      </ul>
+      <p>The app does not store your location. The chapters map uses Google Maps.</p>
+
+      <h2>How we use data</h2>
+      <p>Only to run the app: send alerts, score trivia, run raffles, show results, protect the service and fix errors. <strong>We do not sell your data or use it for advertising.</strong></p>
+
+      <h2>Who it is shared with</h2>
+      <p>Event organizers, as needed to run the event, and the services that power the app: Google (Firebase and Maps) and the gdg.community.dev platform. Firebase servers may be outside your country, including the United States.</p>
+
+      <h2>Security and retention</h2>
+      <p>Communication uses HTTPS and access to our services is limited to the verified app. No system is foolproof. We keep data while needed to run the app or until you ask us to delete it.</p>
+
+      <h2>Your choices and rights</h2>
+      <ul>
+        <li>Turn off notifications in the app or in your phone settings.</li>
+        <li>Signing out deletes that device's notification token.</li>
+        <li>You can request access, correction or deletion of your data, or object to its use, by writing to <a href="mailto:gdgcampeche@gmail.com">gdgcampeche@gmail.com</a> from your account email.</li>
+      </ul>
+      <p>This does not delete your gdg.community.dev account, which is managed on that platform.</p>
+
+      <h2>Children</h2>
+      <p>The app is not directed at children under 13. If you believe a child gave us data, contact us and we will delete it.</p>
+
+      <h2>Changes</h2>
+      <p>If this policy changes, the new version will be published at this same address with its date.</p>
+
+      <h2>Contact</h2>
+      <ul>
+        <li>René Sandoval — <a href="https://renes.dev">renes.dev</a></li>
+        <li>Email — <a href="mailto:gdgcampeche@gmail.com">gdgcampeche@gmail.com</a></li>
+      </ul>
+    </article>
+
+    <footer class="doc-footer">
+      <span>© 2026 René Sandoval</span>
+      <a href="https://renes.dev">← renes.dev</a>
+    </footer>
+  </main>
+</body>
+</html>
